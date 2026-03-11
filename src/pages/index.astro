@@ -23,7 +23,9 @@ const posts = sortPosts(await getCollection('posts'));
   <h1 class="home-title">
     <a href="/">Hola!</a>
   </h1>
-  <Bio />
+  <div class="bio-content">
+    <Bio />
+  </div>
   {
     posts.map((post) => {
       const href = `/${normalizePostPath(post.data.path, post.id)}/`;
@@ -44,12 +46,18 @@ const posts = sortPosts(await getCollection('posts'));
 
 <style>
   .home-title {
-    font-size: clamp(2.4rem, 8vw, 4rem);
-    margin: 0 0 2.625rem;
+    font-size: clamp(4rem, 12vw, 6rem);
+    font-weight: 500;
+    margin-bottom: 1rem;
   }
 
   .home-title a {
     color: tomato;
+  }
+
+  .bio-content {
+    /* background-color: yellow; */
+    padding-bottom: 1.5rem;
   }
 
   .post-preview {
