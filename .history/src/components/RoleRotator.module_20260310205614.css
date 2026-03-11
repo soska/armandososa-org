@@ -1,0 +1,16 @@
+.role {
+  color: var(--accent);
+  display: inline-flex;
+  flex-direction: column;
+  background-color: yellow;
+  height: 1.5em;
+  border: 1px solid red;
+}
+
+.roles {
+  display: flex;
+  flex-direction: column;
+  height: calc(1.5em * 1.55)
+  border:1px solid blue;
+  /* transform: translateY(-1.5rem); */
+}

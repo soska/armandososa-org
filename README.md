@@ -1,9 +1,16 @@
-# gatsby-starter-blog
-Gatsby starter for creating a blog
+# armandososa.org (Astro)
 
-Install this starter (assuming Gatsby is installed) by running from your CLI:
+Modernized personal site and blog migrated from legacy Gatsby to Astro + React.
 
-`gatsby new gatsby-blog https://github.com/gatsbyjs/gatsby-starter-blog`
+## Commands
 
-## Running in development
-`gatsby develop`
+- `npm install`
+- `npm run dev`
+- `npm run build`
+- `npm run preview`
+- `npm run write "Post Title"` to scaffold a new post in `src/content/posts`
+
+## Content
+
+- Blog posts live in `src/content/posts/**/index.md`.
+- Static assets are served from `public/`.

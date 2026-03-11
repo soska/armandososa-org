@@ -1,0 +1,82 @@
+---
+import { Font } from 'astro:assets';
+import '../styles/global.css';
+import Footer from '../components/Footer.astro';
+import Logo from '../components/Logo.astro';
+
+interface Props {
+  title?: string;
+  heading?: string;
+}
+
+const { title = 'Armando Sosa', heading } = Astro.props;
+const pathname = Astro.url.pathname;
+
+const navLinks = [
+  ['Home', '/'],
+  ['About', '/about'],
+  ['Projects', '/projects'],
+];
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content="Armando Sosa blog and projects" />
+    <Font cssVariable="--font-noto-serif" preload />
+    <link rel="icon" href="/favicon.ico" />
+  </head>
+  <body>
+    <Logo />
+    <nav>
+      {navLinks.map(([label, href]) => {
+        const current = pathname === href;
+        return (
+          <a class={current ? 'current' : ''} href={href} aria-current={current ? 'page' : undefined}>
+            {label}
+          </a>
+        );
+      })}
+    </nav>
+
+    <main>
+      {heading ? <h1 class="page-heading">{heading}</h1> : null}
+      <slot />
+    </main>
+
+    <Footer />
+  </body>
+</html>
+
+<style>
+  nav {
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid var(--line);
+    background: transparent;
+  }
+
+  nav a {
+    font-size: 0.79rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    display: block;
+    padding: 0.875rem;
+    color: var(--muted);
+  }
+
+  nav a.current,
+  nav a:hover {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .page-heading {
+    color: var(--accent);
+    font-size: clamp(2.4rem, 8vw, 4rem);
+    margin: 0 0 2.625rem;
+    text-align: left;
+  }
+</style>

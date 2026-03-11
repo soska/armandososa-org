@@ -1,0 +1,55 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import keyboardist from '../assets/keyboardist.png';
+import givemeacolor from '../assets/givemeacolor.png';
+import savage from '../assets/savage.png';
+
+const github = (name: string) => `https://github.com/soska/${name}`;
+---
+
+<MainLayout title="Projects | Armando Sosa">
+  <h2>Open Source</h2>
+
+  <article class="project-card">
+    <a href={github('keyboardist.js')} class="project-title">Keyboardist</a>
+    <img src={keyboardist.src} alt="Keyboardist" />
+    <p>Easy way to add key shortcuts to your JavaScript application.</p>
+  </article>
+
+  <article class="project-card">
+    <a href={github('react-keyboardist')} class="project-title">React Keyboardist</a>
+    <p>React wrapper for Keyboardist.</p>
+  </article>
+
+  <h2>Fun Tools</h2>
+
+  <article class="project-card">
+    <a href="https://givemeacolor.com" class="project-title">Give Me A Color</a>
+    <img src={givemeacolor.src} alt="GiveMeAColor.com" />
+    <p>Sometimes one needs a random color to get the inspiration going.</p>
+  </article>
+
+  <article class="project-card">
+    <a href="https://savage.now.sh" class="project-title">Savage</a>
+    <img src={savage.src} alt="Savage" />
+    <p>Quick way to turn an SVG file into a React component.</p>
+  </article>
+</MainLayout>
+
+<style>
+  .project-card {
+    margin: 1rem 0;
+    padding: 1rem;
+    background: var(--surface);
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.05) 6px 6px 0;
+  }
+
+  .project-title {
+    display: block;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid #f0eeea;
+    font-weight: 700;
+  }
+</style>

@@ -1,0 +1,23 @@
+---
+import RoleRotator from './RoleRotator.jsx';
+---
+
+<div class="bio">
+  I am Armando Sosa. A <RoleRotator client:load /> currently living in Guadalajara, Mexico. Welcome to my site.
+</div>
+
+<style>
+  .bio {
+    margin-bottom: 2.5rem;
+    color: #4d535a;
+    font-weight: 600;
+    /* font-size: clamp(1.05rem, 1.3vw, 1.5rem); */
+    font-size: clamp(1.05rem, 4vw, 2.1rem);
+    line-height: 1.55;
+  }
+
+  .bio :global(.role) {
+    color: var(--accent);
+    display: inline-block;
+  }
+</style>

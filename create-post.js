@@ -1,78 +1,62 @@
-const fs = require('mz/fs');
-const mkdir = require('mz-modules/mkdirp');
-const path = require('path');
-const pagesPath = path.resolve(__dirname, 'src/posts');
-const _ = require('lodash');
+const fs = require('node:fs/promises');
+const path = require('node:path');
 
-const openInEditor = require('open-in-editor');
-const editor = openInEditor.configure(
-  {
-    editor: 'sublime',
-  },
-  function(err) {
-    console.error('Something went wrong: ' + err);
-  }
-);
+const postsPath = path.resolve(__dirname, 'src/content/posts');
 
-const getPostPath = postName => {
+function kebabCase(value) {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+function getPostPath(postName) {
   const date = new Date();
   const parts = [
-    date.getYear() + 1900,
+    date.getFullYear(),
     date.getMonth() + 1,
     date.getDate(),
-    _.kebabCase(postName),
+    kebabCase(postName),
   ];
-  return parts.join('/');
-};
 
-const frontMatter = ({ postName, postPath }) =>
-  [
+  return parts.join('/');
+}
+
+function postTemplate(postName, postPath) {
+  return [
     '---',
     `path: ${postPath}`,
     `date: ${JSON.stringify(new Date())}`,
     `title: ${postName}`,
-    `tags: []`,
+    'tags: []',
     '---',
+    '',
+    'Lorem ipsum dolor sit amet',
+    '',
   ].join('\n');
+}
 
-const postTemplate = ({ postName, postPath }) =>
-  [frontMatter({ postName, postPath }), `Lorem ipsum dolor sit amet`].join(
-    '\n\n'
-  );
+async function createPost(postName) {
+  if (!postName) {
+    throw new Error('Please provide a post title, for example: npm run write "My New Post"');
+  }
 
-const createPost = postName =>
-  new Promise((resolve, reject) => {
-    const postPath = getPostPath(postName);
-    const fullPath = path.join(pagesPath, postPath);
-    mkdir(fullPath)
-      .then(() => {
-        return fs.writeFile(
-          path.join(fullPath, 'index.md'),
-          postTemplate({ postName, postPath }),
-          'utf8'
-        );
-      })
-      .then(() => {
-        resolve(fullPath);
-      })
-      .catch(ex => {
-        reject(ex);
-      });
-  });
+  const postPath = getPostPath(postName);
+  const fullPath = path.join(postsPath, postPath);
 
-const main = () => {
-  const title = process.argv.slice(2).join(' ');
-  createPost(title)
-    .then(fullPath => {
-      console.log(`\n---\n- New post created at \n- ${fullPath}\n---`);
-      editor.open(path.join(fullPath, 'index.md'));
-    })
-    .catch(ex => {
-      throw ex;
-    });
-  // console.log(title);
-};
+  await fs.mkdir(fullPath, { recursive: true });
+  await fs.writeFile(path.join(fullPath, 'index.md'), postTemplate(postName, postPath), 'utf8');
 
-main();
+  return fullPath;
+}
 
-// createPost('Hello World again');
+async function main() {
+  const title = process.argv.slice(2).join(' ').trim();
+  const fullPath = await createPost(title);
+  console.log(`\n---\nNew post created at:\n${fullPath}\n---`);
+}
+
+main().catch((error) => {
+  console.error(error.message);
+  process.exit(1);
+});

@@ -1,0 +1,23 @@
+.role {
+  --role-height: 1.5em;
+  --current-role-index: 0;
+  color: var(--accent);
+  display: inline-flex;
+  flex-direction: column;
+  /* background-color: yellow; */
+  height: 1.55em;
+  /* border: 1px solid red; */
+  overflow: hidden;
+}
+
+.roles {
+  display: flex;
+  flex-direction: column;
+  transform: translateY(calc(var(--role-height) * (var(--current-role-index) * -1)));
+  transition: transform 0.5s ease-out;
+
+  & > span {
+    height: var(--role-height);
+    border: 1px solid blue;
+  }
+}

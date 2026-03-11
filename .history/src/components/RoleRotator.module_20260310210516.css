@@ -1,0 +1,21 @@
+.role {
+  --role-height: 1.5em;
+  --current-role-index: 0;
+  color: var(--accent);
+  display: inline-flex;
+  flex-direction: column;
+  background-color: yellow;
+  height: 1.5em;
+  border: 1px solid red;
+}
+
+.roles {
+  display: flex;
+  flex-direction: column;
+  transform: translateY(-1 * calc(var(--role-height) * var(--current-role-index)));
+
+  & > span {
+    height: 1.5em;
+    border: 1px solid blue;
+  }
+}
