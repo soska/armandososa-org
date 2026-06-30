@@ -1,51 +1,98 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
 import MainLayout from '../layouts/MainLayout.astro';
-import Bio from '../components/Bio.astro';
-import { formatPostListDate, normalizePostPath, sortPosts } from '../lib/posts';
+// import Bio from '../components/Bio.astro';
+import RoleRotator from '../components/RoleRotator';
 
-function summaryFromMarkdown(markdown: string) {
-  return markdown
-    .replace(/```[\s\S]*?```/g, '')
-    .replace(/`[^`]*`/g, '')
-    .replace(/!\[[^\]]*\]\([^)]*\)/g, '')
-    .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
-    .replace(/[*_>#-]/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim()
-    .slice(0, 210);
-}
+const allProjects = await getCollection('projects');
 
-const posts = sortPosts(await getCollection('posts'));
+const categoryOrder = ['Open Source', 'Fun Tools'];
+const categories = categoryOrder
+  .map((category) => ({
+    category,
+    projects: allProjects
+      .filter((project) => project.data.category === category)
+      .sort((a, b) => a.data.order - b.data.order),
+  }))
+  .filter((group) => group.projects.length > 0);
+
+const rendered = new Map(
+  await Promise.all(
+    allProjects.map(async (project) => [project.id, (await render(project)).Content] as const),
+  ),
+);
 ---
 
 <MainLayout title="Armando Sosa">
-  <h1 class="home-title">
-    <a href="/">Hola!</a>
-  </h1>
-  <div class="bio-content">
-    <Bio />
-  </div>
-  {
-    posts.map((post) => {
-      const href = `/${normalizePostPath(post.data.path, post.id)}/`;
-      const summary = post.data.blurb ?? summaryFromMarkdown(post.body ?? '');
+  <div class="hero">
+    <div></div>
+    <div>
+      <h1 class="home-title">
+        <a href="/">Hi! I am Armando Sosa</a>
+      </h1>
 
-      return (
-        <article class="post-preview">
-          <h3>
-            <a href={href}>{post.data.title}</a>
-          </h3>
-          <p class="date">{formatPostListDate(post.data.date)}</p>
-          <p>{summary}</p>
-        </article>
-      );
-    })
+<div class="bio">
+  <div>
+    I am <RoleRotator client:load />
+  </div>
+  <div>
+    Guadalajara, Mexico
+  </div>
+</div>
+
+    </div>
+  </div>
+
+  <div class="main-content">
+  {
+    categories.map(({ category, projects }) => (
+      <section>
+        <h2>{category}</h2>
+        {projects.map((project) => {
+          const Description = rendered.get(project.id);
+          return (
+            <article class="project-card">
+              <a href={project.data.url} class="project-title">
+                {project.data.title}
+              </a>
+              {project.data.image && (
+                <Image src={project.data.image} alt={project.data.title} />
+              )}
+              {Description && <Description />}
+            </article>
+          );
+        })}
+      </section>
+    ))
   }
+  </div>
 </MainLayout>
 
 <style>
-  .home-title {
+  .hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 20vh;
+    background:tomato;
+    color:white;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .hero h1 {
+    font-size: clamp(2rem, 8vw, 4rem);
+    font-weight: 500;
+    margin-bottom: 1rem;
+    /* color:white; */
+  }
+  .hero a {
+    color:inherit;
+  }
+
+  /* .home-title {
     font-size: clamp(4rem, 12vw, 6rem);
     font-weight: 500;
     margin-bottom: 1rem;
@@ -53,31 +100,26 @@ const posts = sortPosts(await getCollection('posts'));
 
   .home-title a {
     color: tomato;
-  }
+  } */
 
   .bio-content {
     /* background-color: yellow; */
     padding-bottom: 1.5rem;
   }
 
-  .post-preview {
-    margin-bottom: 5rem;
+  .project-card {
+    margin: 1rem 0;
+    padding: 1rem;
+    background: var(--surface);
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.05) 6px 6px 0;
   }
 
-  .post-preview h3 {
-    margin-bottom: 0.4375rem;
-    margin-top: 0;
-  }
-
-  .post-preview h3 a {
-    color: #e17055;
-  }
-
-  .date {
-    font-size: 0.875rem;
-    color: #808080;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    margin-bottom: 0.875rem;
+  .project-title {
+    display: block;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid #f0eeea;
+    font-weight: 700;
   }
 </style>

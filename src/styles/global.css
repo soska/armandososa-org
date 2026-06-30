@@ -42,7 +42,7 @@ img {
   height: auto;
 }
 
-main {
+.main-content {
   width: min(100%, var(--max-content));
   margin: 0 auto;
   min-height: 80vh;

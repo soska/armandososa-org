@@ -1,12 +1,31 @@
+/* All roles share a single grid cell, so the box auto-sizes to the widest /
+   tallest role — no JS height measurement needed. */
 .role {
-  color: var(--accent);
-  display: inline-flex;
-  flex-direction: column;
-  height: 1.55em;
-  overflow: hidden;
+  display: inline-grid;
+  color: inherit;
 }
 
-.roles {
-  display: flex;
-  flex-direction: column;
+.word {
+  grid-area: 1 / 1;
+  opacity: 0;
+  filter: blur(8px);
+  transform: translateY(0.2em) scale(0.96);
+  transition:
+    opacity 0.5s ease,
+    filter 0.5s ease,
+    transform 0.5s ease;
+}
+
+.word[data-active='true'] {
+  opacity: 1;
+  filter: blur(0);
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .word {
+    transition-duration: 0.01ms;
+    transform: none;
+    filter: none;
+  }
 }

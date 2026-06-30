@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './RoleRotator.module.css';
 
 const baseRoles = [
@@ -8,71 +8,47 @@ const baseRoles = [
   'Designer',
   'Musician',
   'Mexican',
-  'Game Maker'
+  'Game Maker',
 ];
 
 function shuffle(values: string[]): string[] {
   const result = [...values];
-  let currentIndex = result.length;
-
-  while (currentIndex) {
-    const randomIndex = Math.floor(Math.random() * currentIndex--);
-    [result[currentIndex], result[randomIndex]] = [
-      result[randomIndex],
-      result[currentIndex],
-    ];
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
   }
-
   return result;
 }
 
 export default function RoleRotator() {
+  // Start with the deterministic order so server-rendered and hydrated markup
+  // match, then shuffle on the client after mount.
   const [roles, setRoles] = useState(baseRoles);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const rolesRef = useRef<HTMLSpanElement>(null);
+  const [index, setIndex] = useState(0);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     setRoles(shuffle(baseRoles));
   }, []);
 
-  useLayoutEffect(() => {
-    const container = containerRef.current;
-    const rolesEl = rolesRef.current;
-    if (!container || !rolesEl) return;
-
-    const roleHeight = container.clientHeight;
-    let currentIndex = 0;
-
-    const advance = () => {
-      const nextIndex = (currentIndex + 1) % roles.length;
-
-      rolesEl.animate(
-        [
-          { transform: `scale(1.0) translateY(${-currentIndex * roleHeight}px)`, filter: 'blur(0px)' },
-          { transform: `scale(0.95) translateY(${-(currentIndex + 0.5) * roleHeight}px)`, filter: 'blur(8px)' },
-          { transform: `scale(1.0) translateY(${-nextIndex * roleHeight}px)`, filter: 'blur(0px)' },
-        ],
-        {
-          duration: 120,
-          easing: 'ease-in-out',
-          fill: 'forwards',
-        },
-      );
-
-      currentIndex = nextIndex;
-    };
-
-    const timer = window.setInterval(advance, 6000);
-    return () => window.clearInterval(timer);
-  }, [roles]);
+  useEffect(() => {
+    const id = window.setInterval(() => {
+      setIndex((current) => (current + 1) % roles.length);
+    }, 6000);
+    return () => window.clearInterval(id);
+  }, [roles.length]);
 
   return (
-    <div className={styles.role} ref={containerRef}>
-      <span className={styles.roles} ref={rolesRef}>
-        {roles.map((role) => (
-          <span key={role}>{role}{'.'}</span>
-        ))}
-      </span>
-    </div>
+    <span className={styles.role}>
+      {roles.map((role, i) => (
+        <span
+          key={role}
+          className={styles.word}
+          data-active={i === index}
+          aria-hidden={i !== index}
+        >
+          {role}.
+        </span>
+      ))}
+    </span>
   );
 }

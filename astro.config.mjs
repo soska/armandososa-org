@@ -13,6 +13,7 @@ export default defineConfig({
     fallbacks: ['system-ui', 'sans-serif'],
   }],
   redirects: {
+    '/projects': '/',
     '/keyboardist': 'https://soska.github.io/keyboardist.js',
     '/keyboardist.js': 'https://soska.github.io/keyboardist.js',
     '/react-keyboardist': 'https://soska.github.io/react-keyboardist',

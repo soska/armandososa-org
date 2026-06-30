@@ -14,8 +14,8 @@ const pathname = Astro.url.pathname;
 
 const navLinks = [
   ['Home', '/'],
+  ['Articles', '/articles'],
   ['About', '/about'],
-  ['Projects', '/projects'],
 ];
 ---
 
@@ -29,7 +29,7 @@ const navLinks = [
     <link rel="icon" href="/favicon.ico" />
   </head>
   <body>
-    <Logo />
+    <!-- <Logo /> -->
     <nav>
       {navLinks.map(([label, href]) => {
         const current = pathname === href;
