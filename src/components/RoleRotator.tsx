@@ -62,7 +62,7 @@ export default function RoleRotator() {
       currentIndex = nextIndex;
     };
 
-    const timer = window.setInterval(advance, 2500);
+    const timer = window.setInterval(advance, 6000);
     return () => window.clearInterval(timer);
   }, [roles]);
 
