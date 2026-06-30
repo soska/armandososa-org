@@ -6,11 +6,11 @@ export default defineConfig({
   site: 'https://armandososa.org',
   fonts: [{
     provider: fontProviders.google(),
-    name: 'Noto Serif',
-    cssVariable: '--font-noto-serif',
+    name: 'Bricolage Grotesque',
+    cssVariable: '--font-bricolage-grotesque',
     weights: [400, 700, 900],
-    styles: ['normal', 'italic'],
-    fallbacks: ['Georgia', 'serif'],
+    styles: ['normal'],
+    fallbacks: ['system-ui', 'sans-serif'],
   }],
   redirects: {
     '/keyboardist': 'https://soska.github.io/keyboardist.js',

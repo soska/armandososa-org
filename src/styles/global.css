@@ -18,7 +18,7 @@ body {
   padding: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: var(--font-noto-serif);
+  font-family: var(--font-bricolage-grotesque);
   font-size: 16px;
   line-height: 1.75;
 }
@@ -53,7 +53,7 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: var(--font-noto-serif);
+  font-family: var(--font-bricolage-grotesque);
   font-weight: 900;
   line-height: 1.2;
   margin-top: 3.5rem;
@@ -96,7 +96,7 @@ blockquote {
 kbd {
   font-size: 0.85rem;
   line-height: 1.75rem;
-  font-family: var(--font-noto-serif);
+  font-family: var(--font-bricolage-grotesque);
   color: #778899;
   display: inline-block;
   padding: 0 6px;
