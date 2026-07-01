@@ -2,6 +2,7 @@
 
 @theme {
   --color-bg: #fafaf0;
+  --color-sand: #fafaf0;
   --color-surface: #ffffff;
   --color-text: #333333;
   --color-muted: #666666;
@@ -18,6 +19,22 @@
   --text-heading: clamp(2.4rem, 8vw, 4rem);
 
   --container-content: 49rem;
+
+  /* Shared fade-in, exposed as `animate-fade-in` / `animate-fade-in-fast`
+     utilities. Used by the project thumbnails and the project modal. */
+  --animate-fade-in: fadeIn 0.42s ease-in-out both;
+  --animate-fade-in-fast: fadeIn 0.24s ease-out both;
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
 
 /* Base typography. These element defaults style both the hand-written pages

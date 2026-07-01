@@ -23,33 +23,36 @@ const visibleProjects = projects
   .filter((project) => resolveProjectImage(project.id, project.data.image) !== undefined);
 ---
 
-<div class="align-center mx-auto flex w-4xl flex-row justify-center gap-6 py-22">
-  {
-    visibleProjects.map((project, index) => {
-      const image = resolveProjectImage(project.id, project.data.image)!;
-      return (
-        <a
-          href={`#project-${project.id}`}
-          class="thumbnail animate-fade-in"
-          aria-haspopup="dialog"
-          aria-label={`Open details for ${project.data.title}`}
-          style={{ animationDelay: `${index * 100}ms` }}
-        >
-          <Image
-            src={image}
-            alt={project.data.title}
-            class="aspect-square w-full scale-100 overflow-hidden rounded-3xl bg-white object-cover shadow-2xl transition-all duration-210 ease-in-out hover:scale-110"
-            loading="lazy"
-            fetchpriority="high"
-            width={500}
-            height={500}
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            style={{ aspectRatio: '1 / 1' }}
-          />
-        </a>
-      );
-    })
-  }
+<div class="mx-auto flex w-4xl flex-col py-6">
+  <h2 class="-mb-6 font-grotesque text-4xl font-bold text-accent">Recent work</h2>
+  <div class="align-center -row mx-auto flex justify-center gap-6 py-22">
+    {
+      visibleProjects.map((project, index) => {
+        const image = resolveProjectImage(project.id, project.data.image)!;
+        return (
+          <a
+            href={`#project-${project.id}`}
+            class="block min-w-0 flex-1 animate-fade-in motion-reduce:animate-none"
+            aria-haspopup="dialog"
+            aria-label={`Open details for ${project.data.title}`}
+            style={{ animationDelay: `${index * 100}ms` }}
+          >
+            <Image
+              src={image}
+              alt={project.data.title}
+              class="aspect-square w-full scale-100 overflow-hidden rounded-3xl bg-white object-cover shadow-2xl transition-all duration-210 ease-in-out hover:scale-110"
+              loading="lazy"
+              fetchpriority="high"
+              width={500}
+              height={500}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              style={{ aspectRatio: '1 / 1' }}
+            />
+          </a>
+        );
+      })
+    }
+  </div>
 </div>
 
 {
@@ -59,34 +62,46 @@ const visibleProjects = projects
     return (
       <div
         id={`project-${project.id}`}
-        class="modal"
+        class="group fixed inset-0 z-50 hidden items-center justify-center p-6 target:flex"
         role="dialog"
         aria-modal="true"
         aria-labelledby={`modal-title-${project.id}`}
       >
-        <a href="#" class="modal-backdrop" aria-label="Close" tabindex="-1" />
-        <div class="modal-box">
-          <a href="#" class="modal-close" aria-label="Close">×</a>
-          <div class="modal-image-wrap">
+        <a
+          href="#"
+          class="absolute inset-0 bg-accent/60 backdrop-blur-xl"
+          aria-label="Close"
+          tabindex="-1"
+        />
+        <div class="relative z-1 max-h-[90vh] w-full max-w-2xl overflow-auto rounded-[1.25rem] bg-sand p-8 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.45)] group-target:animate-fade-in-fast motion-reduce:animate-none">
+          <a
+            href="#"
+            class="absolute top-3 right-4 text-[1.75rem] leading-none text-muted no-underline hover:text-accent focus-visible:text-accent"
+            aria-label="Close"
+            data-modal-close
+          >
+            ×
+          </a>
+          <div class="mb-5 overflow-hidden rounded-xl bg-line">
             <Image
               src={image}
               alt={project.data.title}
-              class="modal-image"
+              class="block h-auto w-full object-cover"
               width={800}
               height={600}
             />
           </div>
-          <h2 id={`modal-title-${project.id}`} class="modal-title">
+          <h2 id={`modal-title-${project.id}`} class="mt-0 mb-4">
             {project.data.title}
           </h2>
           {Description && (
-            <div class="modal-description">
+            <div class="[&_p:last-child]:mb-0">
               <Description />
             </div>
           )}
           <a
             href={project.data.url}
-            class="modal-visit"
+            class="mt-6 inline-block font-bold"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -99,119 +114,10 @@ const visibleProjects = projects
 }
 
 <style>
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(8px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .animate-fade-in {
-    animation: fadeIn 0.42s ease-in-out both;
-  }
-
-  .thumbnail {
-    display: block;
-    flex: 1;
-    min-width: 0;
-  }
-
-  /* --- Modal (CSS `:target` — works with no JS) --- */
-  .modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 50;
-    align-items: center;
-    justify-content: center;
-    padding: 1.5rem;
-  }
-
-  .modal:target {
-    display: flex;
-  }
-
-  /* Lock background scroll while any modal is open (pure CSS). */
-  :global(body:has(.modal:target)) {
+  /* Lock background scroll while any modal is open. A `:has()` rule on `body`
+     can't be expressed as a utility on the modal element, so it stays here. */
+  :global(body:has([role='dialog']:target)) {
     overflow: hidden;
-  }
-
-  .modal-backdrop {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.55);
-  }
-
-  .modal-box {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    max-width: 42rem;
-    max-height: 90vh;
-    overflow: auto;
-    padding: 2rem;
-    background: var(--color-surface);
-    border-radius: 1.25rem;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45);
-  }
-
-  .modal:target .modal-box {
-    animation: fadeIn 0.24s ease-out both;
-  }
-
-  .modal-close {
-    position: absolute;
-    top: 0.75rem;
-    right: 1rem;
-    font-size: 1.75rem;
-    line-height: 1;
-    color: var(--color-muted);
-    text-decoration: none;
-  }
-
-  .modal-close:hover,
-  .modal-close:focus-visible {
-    color: var(--color-accent);
-  }
-
-  .modal-image-wrap {
-    overflow: hidden;
-    border-radius: 0.75rem;
-    background: var(--color-line);
-    margin-bottom: 1.25rem;
-  }
-
-  .modal-image {
-    display: block;
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-  }
-
-  .modal-title {
-    margin-top: 0;
-    margin-bottom: 1rem;
-  }
-
-  .modal-description :global(p:last-child) {
-    margin-bottom: 0;
-  }
-
-  .modal-visit {
-    display: inline-block;
-    margin-top: 1.5rem;
-    font-weight: 700;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .animate-fade-in,
-    .modal:target .modal-box {
-      animation: none;
-    }
   }
 </style>
 
@@ -228,17 +134,17 @@ const visibleProjects = projects
     const hash = location.hash.slice(1);
     if (!hash) return null;
     const el = document.getElementById(hash);
-    return el && el.classList.contains('modal') ? el : null;
+    return el && el.matches('[role="dialog"]') ? el : null;
   }
 
   function onHashChange() {
     const modal = currentModal();
     if (!modal) return;
     // Remember the thumbnail that opened this so we can restore focus on close.
-    if (!(lastFocused && lastFocused.matches('.modal, .modal *'))) {
+    if (!(lastFocused && lastFocused.matches('[role="dialog"], [role="dialog"] *'))) {
       lastFocused = document.activeElement as HTMLElement | null;
     }
-    const close = modal.querySelector<HTMLElement>('.modal-close');
+    const close = modal.querySelector<HTMLElement>('[data-modal-close]');
     close?.focus();
   }
 
