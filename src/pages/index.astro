@@ -4,122 +4,37 @@ import { Image } from 'astro:assets';
 import MainLayout from '../layouts/MainLayout.astro';
 // import Bio from '../components/Bio.astro';
 import RoleRotator from '../components/RoleRotator';
+import Thumbnails from '../components/Thumbnails.astro';
+import { resolveProjectImage } from '../lib/projectImages';
 
 const allProjects = await getCollection('projects');
 
-const categoryOrder = ['Open Source', 'Fun Tools'];
-const categories = categoryOrder
-  .map((category) => ({
-    category,
-    projects: allProjects
-      .filter((project) => project.data.category === category)
-      .sort((a, b) => a.data.order - b.data.order),
-  }))
-  .filter((group) => group.projects.length > 0);
+// const categoryOrder = ['Open Source', 'Fun Tools'];
+// const categories = categoryOrder
+// .map((category) => ({
+//   category,
+//   projects: allProjects
+//     .filter((project) => project.data.category === category)
+//     .sort((a, b) => a.data.order - b.data.order),
+// }))
+// .filter((group) => group.projects.length > 0);
 
 const rendered = new Map(
   await Promise.all(
-    allProjects.map(async (project) => [project.id, (await render(project)).Content] as const),
-  ),
+    allProjects.map(async (project) => [project.id, (await render(project)).Content] as const)
+  )
 );
 ---
 
 <MainLayout title="Armando Sosa">
-  <div class="hero">
-    <div></div>
-    <div>
-      <h1 class="home-title">
-        <a href="/">Hi! I am Armando Sosa</a>
-      </h1>
-
-<div class="bio">
-  <div>
-    I am <RoleRotator client:load />
-  </div>
-  <div>
-    Guadalajara, Mexico
-  </div>
-</div>
-
+  <div class="mx-auto flex h-[40vh] w-full flex-col items-center justify-end bg-accent text-white">
+    <div class="mx-auto flex w-4xl flex-col py-8">
+      <h1 class="border-b-4 border-white/50 p-4 font-grotesque text-7xl font-bold">Armando Sosa</h1>
+      <div class="p-4 font-grotesque text-7xl font-bold">
+        <RoleRotator client:load />
+      </div>
     </div>
   </div>
 
-  <div class="main-content">
-  {
-    categories.map(({ category, projects }) => (
-      <section>
-        <h2>{category}</h2>
-        {projects.map((project) => {
-          const Description = rendered.get(project.id);
-          return (
-            <article class="project-card">
-              <a href={project.data.url} class="project-title">
-                {project.data.title}
-              </a>
-              {project.data.image && (
-                <Image src={project.data.image} alt={project.data.title} />
-              )}
-              {Description && <Description />}
-            </article>
-          );
-        })}
-      </section>
-    ))
-  }
-  </div>
+  <Thumbnails projects={allProjects} />
 </MainLayout>
-
-<style>
-  .hero {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 20vh;
-    background:tomato;
-    color:white;
-    display:grid;
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .hero h1 {
-    font-size: clamp(2rem, 8vw, 4rem);
-    font-weight: 500;
-    margin-bottom: 1rem;
-    /* color:white; */
-  }
-  .hero a {
-    color:inherit;
-  }
-
-  /* .home-title {
-    font-size: clamp(4rem, 12vw, 6rem);
-    font-weight: 500;
-    margin-bottom: 1rem;
-  }
-
-  .home-title a {
-    color: tomato;
-  } */
-
-  .bio-content {
-    /* background-color: yellow; */
-    padding-bottom: 1.5rem;
-  }
-
-  .project-card {
-    margin: 1rem 0;
-    padding: 1rem;
-    background: var(--surface);
-    border-radius: 6px;
-    box-shadow: rgba(0, 0, 0, 0.05) 6px 6px 0;
-  }
-
-  .project-title {
-    display: block;
-    padding-bottom: 0.5rem;
-    margin-bottom: 0.5rem;
-    border-bottom: 1px solid #f0eeea;
-    font-weight: 700;
-  }
-</style>

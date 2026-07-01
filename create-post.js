@@ -12,12 +12,7 @@ function kebabCase(value) {
 
 function getPostPath(postName) {
   const date = new Date();
-  const parts = [
-    date.getFullYear(),
-    date.getMonth() + 1,
-    date.getDate(),
-    kebabCase(postName),
-  ];
+  const parts = [date.getFullYear(), date.getMonth() + 1, date.getDate(), kebabCase(postName)];
 
   return parts.join('/');
 }

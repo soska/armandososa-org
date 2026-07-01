@@ -15,14 +15,16 @@ const posts = defineCollection({
 
 const projects = defineCollection({
   loader: glob({ pattern: '**/index.md', base: './src/content/projects' }),
-  schema: ({ image }) =>
-    z.object({
-      title: z.string(),
-      url: z.string(),
-      image: image().optional(),
-      category: z.string(),
-      order: z.number().default(0),
-    }),
+  // `image` is a plain string (the file name) rather than the `image()` helper,
+  // which would fail the whole build if the file isn't there yet. The image is
+  // resolved lazily at render time, so a missing file just renders no image.
+  schema: z.object({
+    title: z.string(),
+    url: z.string(),
+    image: z.string().optional(),
+    category: z.string(),
+    order: z.number().default(0),
+  }),
 });
 
 export const collections = { posts, projects };

@@ -9,15 +9,11 @@ export function normalizePostPath(pathValue: string | undefined, id: string | un
 
   if (!id) return '';
 
-  return id
-    .replace(/\/index(\.md)?$/, '')
-    .replace(/^\/+|\/+$/g, '');
+  return id.replace(/\/index(\.md)?$/, '').replace(/^\/+|\/+$/g, '');
 }
 
 export function sortPosts(posts: PostEntry[]): PostEntry[] {
-  return posts
-    .slice()
-    .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+  return posts.slice().sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 }
 
 export function formatPostDate(date: Date): string {

@@ -27,73 +27,41 @@ const { Content } = await render(post);
 ---
 
 <MainLayout title={`${post.data.title} | Armando Sosa`}>
-  <header class="post-header">
-    <h1>{post.data.title}</h1>
-    {post.data.subtitle ? <h2>{post.data.subtitle}</h2> : null}
-    <p class="date">{formatPostDate(post.data.date)}</p>
+  <header class="mb-7 bg-accent p-7">
+    <h1 class="m-0 font-thin text-white">{post.data.title}</h1>
+    {
+      post.data.subtitle ? (
+        <h2 class="my-1.5 text-xl text-[#808080]">{post.data.subtitle}</h2>
+      ) : null
+    }
+    <p class="-mt-7 mb-7 text-sm text-[gold] uppercase">{formatPostDate(post.data.date)}</p>
   </header>
 
-  <article class="post-content">
+  <article>
     <Content />
   </article>
 
-  <hr />
+  <hr class="mb-7" />
 
-  <ul class="post-nav">
-    {previous ? (
-      <li>
-        <a href={`/${normalizePostPath(previous.data.path, previous.id)}/`} rel="prev">
-          ← {previous.data.title}
-        </a>
-      </li>
-    ) : null}
+  <ul class="flex list-none flex-wrap justify-between gap-3 p-0">
+    {
+      previous ? (
+        <li>
+          <a href={`/${normalizePostPath(previous.data.path, previous.id)}/`} rel="prev">
+            ← {previous.data.title}
+          </a>
+        </li>
+      ) : null
+    }
 
-    {next ? (
-      <li>
-        <a href={`/${normalizePostPath(next.data.path, next.id)}/`} rel="next">
-          {next.data.title} →
-        </a>
-      </li>
-    ) : null}
+    {
+      next ? (
+        <li>
+          <a href={`/${normalizePostPath(next.data.path, next.id)}/`} rel="next">
+            {next.data.title} →
+          </a>
+        </li>
+      ) : null
+    }
   </ul>
 </MainLayout>
-
-<style>
-  .post-header {
-    background: var(--accent);
-    padding: 1.75rem;
-    margin-bottom: 1.75rem;
-  }
-
-  .post-header h1 {
-    color: #fff;
-    margin: 0;
-    font-weight: 100;
-  }
-
-  .post-header h2 {
-    margin: 0.35rem 0;
-    color: #808080;
-    font-size: 1.2rem;
-  }
-
-  .date {
-    color: gold;
-    text-transform: uppercase;
-    font-size: 0.88rem;
-    margin: -1.75rem 0 1.75rem;
-  }
-
-  hr {
-    margin-bottom: 1.75rem;
-  }
-
-  .post-nav {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    list-style: none;
-    padding: 0;
-    gap: 0.75rem;
-  }
-</style>

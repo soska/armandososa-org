@@ -1,139 +1,156 @@
-:root {
-  --bg: #fafaf0;
-  --surface: #ffffff;
-  --text: #333333;
-  --muted: #666666;
-  --accent: tomato;
-  --line: #f2f2f2;
-  --max-content: 49rem;
+@import 'tailwindcss';
+
+@theme {
+  --color-bg: #fafaf0;
+  --color-surface: #ffffff;
+  --color-text: #333333;
+  --color-muted: #666666;
+  --color-accent: tomato;
+  --color-line: #f2f2f2;
+
+  --font-grotesque: var(--font-bricolage-grotesque), Georgia, serif;
+  --font-sans: var(--font-grotesque);
+  --font-mono: Menlo, Monaco, Consolas, 'Andale Mono', 'Ubuntu Mono', monospace;
+
+  /* Fluid type used by the bio, hero, and page headings. */
+  --text-bio: clamp(1.8rem, 4vw, 2.1rem);
+  --text-hero: clamp(4rem, 8vw, 6rem);
+  --text-heading: clamp(2.4rem, 8vw, 4rem);
+
+  --container-content: 49rem;
 }
 
-* {
-  box-sizing: border-box;
-}
+/* Base typography. These element defaults style both the hand-written pages
+   and the markdown rendered for blog posts, so they live here rather than as
+   utility classes. */
+@layer base {
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.75;
+  }
 
-html,
-body {
-  margin: 0;
-  padding: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--font-bricolage-grotesque);
-  font-size: 16px;
-  line-height: 1.75;
-}
+  body {
+    border-top: 12px solid #ff7675;
+  }
 
-body {
-  border-top: 12px solid #ff7675;
-}
+  a {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
 
-a {
-  color: var(--accent);
-  text-decoration: none;
-}
+  a:hover {
+    color: crimson;
+    text-decoration: none;
+  }
 
-a:hover {
-  color: crimson;
-  text-decoration: none;
-}
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-sans);
+    font-weight: 900;
+    line-height: 1.2;
+    margin-top: 3.5rem;
+  }
 
-img {
-  max-width: 100%;
-  height: auto;
-}
+  h1 {
+    font-size: 2em;
+  }
 
-.main-content {
-  width: min(100%, var(--max-content));
-  margin: 0 auto;
-  min-height: 80vh;
-  padding: 2.625rem 0.75rem;
-}
+  h2 {
+    font-size: 1.5em;
+  }
 
-h1,
-h2,
-h3,
-h4 {
-  font-family: var(--font-bricolage-grotesque);
-  font-weight: 900;
-  line-height: 1.2;
-  margin-top: 3.5rem;
-}
+  h3 {
+    font-size: 1.17em;
+  }
 
-code,
-pre {
-  font-family: Menlo, Monaco, Consolas, 'Andale Mono', 'Ubuntu Mono', monospace;
-}
+  h4 {
+    font-size: 1em;
+  }
 
-p,
-ul,
-ol,
-blockquote,
-pre,
-dl,
-table {
-  margin-top: 0;
-  margin-bottom: 1.75rem;
-}
+  p,
+  ul,
+  ol,
+  blockquote,
+  pre,
+  dl,
+  table {
+    margin-top: 0;
+    margin-bottom: 1.75rem;
+  }
 
-ul {
-  list-style: disc;
-}
-
-ul,
-ol {
-  margin-left: 0;
-  padding-left: 1.5rem;
-}
-
-blockquote {
-  color: #666;
-  font-style: italic;
-  padding-left: 1.45rem;
-  margin-left: -1.75rem;
-  border-left: 0.35rem solid #1a1a1a;
-}
-
-kbd {
-  font-size: 0.85rem;
-  line-height: 1.75rem;
-  font-family: var(--font-bricolage-grotesque);
-  color: #778899;
-  display: inline-block;
-  padding: 0 6px;
-  background: #fff;
-  border: 1px solid #e0e0e0;
-  border-radius: 3px;
-  box-shadow: rgba(0, 0, 0, 0.5) 1px 1px 0;
-}
-
-pre {
-  background: #fdf6e3;
-  border: 1px solid #eee8d5;
-  border-radius: 4px;
-  padding: 1rem;
-  overflow-x: auto;
-}
-
-code {
-  background: #f5efe0;
-  padding: 0.1rem 0.35rem;
-  border-radius: 3px;
-}
-
-pre code {
-  background: transparent;
-  padding: 0;
-}
-
-@media (max-width: 760px) {
-  blockquote {
-    margin-left: -1.3rem;
-    padding-left: 1rem;
+  ul {
+    list-style: disc;
   }
 
   ul,
   ol {
-    margin-left: 1.75rem;
-    padding-left: 0;
+    margin-left: 0;
+    padding-left: 1.5rem;
+  }
+
+  blockquote {
+    color: #666;
+    font-style: italic;
+    padding-left: 1.5rem;
+    margin-left: -1.75rem;
+    border-left: 0.35rem solid #1a1a1a;
+  }
+
+  code,
+  pre {
+    font-family: var(--font-mono);
+  }
+
+  pre {
+    background: #fdf6e3;
+    border: 1px solid #eee8d5;
+    border-radius: 4px;
+    padding: 1rem;
+    overflow-x: auto;
+  }
+
+  code {
+    background: #f5efe0;
+    padding: 0.1rem 0.35rem;
+    border-radius: 3px;
+  }
+
+  pre code {
+    background: transparent;
+    padding: 0;
+  }
+
+  kbd {
+    font-size: 0.85rem;
+    line-height: 1.75rem;
+    font-family: var(--font-sans);
+    color: #778899;
+    display: inline-block;
+    padding: 0 6px;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 3px;
+    box-shadow: rgba(0, 0, 0, 0.5) 1px 1px 0;
+  }
+
+  @media (max-width: 760px) {
+    blockquote {
+      margin-left: -1.3rem;
+      padding-left: 1rem;
+    }
+
+    ul,
+    ol {
+      margin-left: 1.75rem;
+      padding-left: 0;
+    }
   }
 }

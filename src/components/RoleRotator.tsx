@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
-import styles from './RoleRotator.module.css';
 
 const baseRoles = [
-  'Christian',
-  'Husband',
-  'Developer',
-  'Designer',
-  'Musician',
-  'Mexican',
-  'Game Maker',
+  'christian',
+  'husband',
+  'developer',
+  'designer',
+  'musician',
+  'mexican',
+  'game Maker',
 ];
 
 function shuffle(values: string[]): string[] {
@@ -38,15 +37,17 @@ export default function RoleRotator() {
   }, [roles.length]);
 
   return (
-    <span className={styles.role}>
+    // All roles share one grid cell, so the box auto-sizes to the widest /
+    // tallest role — no JS height measurement needed.
+    <span className="inline-grid text-inherit">
       {roles.map((role, i) => (
         <span
           key={role}
-          className={styles.word}
           data-active={i === index}
           aria-hidden={i !== index}
+          className="translate-y-[0.2em] scale-95 opacity-0 blur-sm transition duration-500 ease-in-out [grid-area:1/1] data-[active=true]:translate-y-0 data-[active=true]:scale-100 data-[active=true]:opacity-100 data-[active=true]:blur-none motion-reduce:translate-y-0 motion-reduce:blur-none motion-reduce:transition-none"
         >
-          {role}.
+          {role}
         </span>
       ))}
     </span>
