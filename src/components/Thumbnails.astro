@@ -1,0 +1,291 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import { render } from 'astro:content';
+import { resolveProjectImage } from '../lib/projectImages';
+
+interface Props {
+  projects: CollectionEntry<'projects'>[];
+}
+
+const { projects } = Astro.props;
+const rendered = new Map(
+  await Promise.all(
+    projects.map(async (project) => [project.id, (await render(project)).Content] as const)
+  )
+);
+
+// Only projects that have a resolvable image, in display order. Computed once and
+// reused for both the thumbnail grid and the modals so they stay in sync.
+const visibleProjects = projects
+  .slice()
+  .sort((a, b) => a.data.order - b.data.order)
+  .filter((project) => resolveProjectImage(project.id, project.data.image) !== undefined);
+---
+
+<div class="align-center mx-auto flex w-4xl flex-row justify-center gap-6 py-22">
+  {
+    visibleProjects.map((project, index) => {
+      const image = resolveProjectImage(project.id, project.data.image)!;
+      return (
+        <a
+          href={`#project-${project.id}`}
+          class="thumbnail animate-fade-in"
+          aria-haspopup="dialog"
+          aria-label={`Open details for ${project.data.title}`}
+          style={{ animationDelay: `${index * 100}ms` }}
+        >
+          <Image
+            src={image}
+            alt={project.data.title}
+            class="aspect-square w-full scale-100 overflow-hidden rounded-3xl bg-white object-cover shadow-2xl transition-all duration-210 ease-in-out hover:scale-110"
+            loading="lazy"
+            fetchpriority="high"
+            width={500}
+            height={500}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            style={{ aspectRatio: '1 / 1' }}
+          />
+        </a>
+      );
+    })
+  }
+</div>
+
+{
+  visibleProjects.map((project) => {
+    const Description = rendered.get(project.id);
+    const image = resolveProjectImage(project.id, project.data.image)!;
+    return (
+      <div
+        id={`project-${project.id}`}
+        class="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={`modal-title-${project.id}`}
+      >
+        <a href="#" class="modal-backdrop" aria-label="Close" tabindex="-1" />
+        <div class="modal-box">
+          <a href="#" class="modal-close" aria-label="Close">×</a>
+          <div class="modal-image-wrap">
+            <Image
+              src={image}
+              alt={project.data.title}
+              class="modal-image"
+              width={800}
+              height={600}
+            />
+          </div>
+          <h2 id={`modal-title-${project.id}`} class="modal-title">
+            {project.data.title}
+          </h2>
+          {Description && (
+            <div class="modal-description">
+              <Description />
+            </div>
+          )}
+          <a
+            href={project.data.url}
+            class="modal-visit"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Visit site →
+          </a>
+        </div>
+      </div>
+    );
+  })
+}
+
+<style>
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.42s ease-in-out both;
+  }
+
+  .thumbnail {
+    display: block;
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* --- Modal (CSS `:target` — works with no JS) --- */
+  .modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+  }
+
+  .modal:target {
+    display: flex;
+  }
+
+  /* Lock background scroll while any modal is open (pure CSS). */
+  :global(body:has(.modal:target)) {
+    overflow: hidden;
+  }
+
+  .modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+  }
+
+  .modal-box {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 42rem;
+    max-height: 90vh;
+    overflow: auto;
+    padding: 2rem;
+    background: var(--color-surface);
+    border-radius: 1.25rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45);
+  }
+
+  .modal:target .modal-box {
+    animation: fadeIn 0.24s ease-out both;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 1rem;
+    font-size: 1.75rem;
+    line-height: 1;
+    color: var(--color-muted);
+    text-decoration: none;
+  }
+
+  .modal-close:hover,
+  .modal-close:focus-visible {
+    color: var(--color-accent);
+  }
+
+  .modal-image-wrap {
+    overflow: hidden;
+    border-radius: 0.75rem;
+    background: var(--color-line);
+    margin-bottom: 1.25rem;
+  }
+
+  .modal-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .modal-title {
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+
+  .modal-description :global(p:last-child) {
+    margin-bottom: 0;
+  }
+
+  .modal-visit {
+    display: inline-block;
+    margin-top: 1.5rem;
+    font-weight: 700;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-fade-in,
+    .modal:target .modal-box {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  // Progressive enhancement: give the `:target` modals real dialog behavior when
+  // JS is available (focus management, focus trap, Escape to close). None of the
+  // basic open/close depends on this — that's handled by CSS `:target`.
+  const FOCUSABLE =
+    'a[href], button:not([disabled]), input, textarea, select, [tabindex]:not([tabindex="-1"])';
+
+  let lastFocused: HTMLElement | null = null;
+
+  function currentModal(): HTMLElement | null {
+    const hash = location.hash.slice(1);
+    if (!hash) return null;
+    const el = document.getElementById(hash);
+    return el && el.classList.contains('modal') ? el : null;
+  }
+
+  function onHashChange() {
+    const modal = currentModal();
+    if (!modal) return;
+    // Remember the thumbnail that opened this so we can restore focus on close.
+    if (!(lastFocused && lastFocused.matches('.modal, .modal *'))) {
+      lastFocused = document.activeElement as HTMLElement | null;
+    }
+    const close = modal.querySelector<HTMLElement>('.modal-close');
+    close?.focus();
+  }
+
+  function closeModal() {
+    const toFocus = lastFocused;
+    lastFocused = null;
+    // Navigating the hash to empty is what actually drops the `:target` (and hides
+    // the modal via CSS) — `history.replaceState` alone does NOT re-evaluate
+    // `:target`. Then tidy the leftover `#` out of the URL without a history entry.
+    location.hash = '';
+    history.replaceState(null, '', location.pathname + location.search);
+    toFocus?.focus();
+  }
+
+  document.addEventListener('keydown', (event) => {
+    const modal = currentModal();
+    if (!modal) return;
+
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeModal();
+      return;
+    }
+
+    if (event.key === 'Tab') {
+      const focusables = Array.from(modal.querySelectorAll<HTMLElement>(FOCUSABLE)).filter(
+        (el) => el.offsetParent !== null
+      );
+      if (focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      const active = document.activeElement as HTMLElement | null;
+
+      if (event.shiftKey && active === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && active === last) {
+        event.preventDefault();
+        first.focus();
+      } else if (active && !modal.contains(active)) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
+  });
+
+  window.addEventListener('hashchange', onHashChange);
+  // Handle a modal that's already targeted on initial load (e.g. deep link).
+  onHashChange();
+</script>
