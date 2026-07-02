@@ -1,0 +1,39 @@
+<div class="mx-auto flex w-full max-w-4xl items-center justify-center">
+  <div class="socials">
+    <div>stalk me on</div>
+    <a href="https://twitter.com/soska" target="_blank" rel="noreferrer"> Twitter / X </a>
+    <a href="https://instagram.com/soska" target="_blank" rel="noreferrer"> Instagram </a>
+    <a href="https://dribbble.com/soska" target="_blank" rel="noreferrer"> Dribbble </a>
+    <a href="https://github.com/soska" target="_blank" rel="noreferrer"> Github </a>
+  </div>
+</div>
+
+<style>
+  .socials {
+    width: 100%;
+    display: flex;
+    /* flex-wrap: wrap;
+    justify-content: center;
+    align-items: center; */
+    gap: var(--spacing-2);
+    & * {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+      border-radius: 0.25rem;
+      color: var(--color-surface);
+    }
+    & div {
+      color: var(--color-sand);
+      margin-right: -0.5rem;
+    }
+    & a {
+      opacity: 0.75;
+      transition: opacity 0.2s ease-in-out;
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+</style>

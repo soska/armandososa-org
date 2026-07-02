@@ -5,6 +5,7 @@ import MainLayout from '../layouts/MainLayout.astro';
 // import Bio from '../components/Bio.astro';
 import RoleRotator from '../components/RoleRotator';
 import Thumbnails from '../components/Thumbnails.astro';
+import Socials from '../components/Socials.astro';
 import { resolveProjectImage } from '../lib/projectImages';
 
 const allProjects = await getCollection('projects');
@@ -34,6 +35,7 @@ const rendered = new Map(
         <RoleRotator client:load />
       </div>
     </div>
+    <Socials />
   </div>
 
   <Thumbnails projects={allProjects} />
