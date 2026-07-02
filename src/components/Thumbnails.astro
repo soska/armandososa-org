@@ -23,29 +23,29 @@ const visibleProjects = projects
   .filter((project) => resolveProjectImage(project.id, project.data.image) !== undefined);
 ---
 
-<div class="mx-auto flex w-4xl flex-col py-6">
-  <h2 class="-mb-6 font-grotesque text-4xl font-bold text-accent">Recent work</h2>
-  <div class="align-center -row mx-auto flex justify-center gap-6 py-22">
+<div class="wrapper flex flex-col gap-8 border-b-2 border-gray-800/10 pt-16 pb-24">
+  <h2 class="relative font-grotesque text-4xl font-bold text-accent">Recent passion projects</h2>
+  <div class="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
     {
       visibleProjects.map((project, index) => {
         const image = resolveProjectImage(project.id, project.data.image)!;
         return (
           <a
             href={`#project-${project.id}`}
-            class="block min-w-0 flex-1 animate-fade-in motion-reduce:animate-none"
+            class="block animate-fade-in motion-reduce:animate-none"
             aria-haspopup="dialog"
             aria-label={`Open details for ${project.data.title}`}
-            style={{ animationDelay: `${index * 100}ms` }}
+            style={{ animationDelay: `${index * 200}ms` }}
           >
             <Image
               src={image}
               alt={project.data.title}
-              class="aspect-square w-full scale-100 overflow-hidden rounded-3xl bg-white object-cover shadow-2xl transition-all duration-210 ease-in-out hover:scale-110"
+              class="aspect-square w-full scale-100 overflow-hidden rounded-3xl border-0 border-white bg-white object-cover shadow-2xl transition-all duration-210 ease-in-out hover:scale-110 hover:border-4 hover:border-white"
               loading="lazy"
               fetchpriority="high"
               width={500}
               height={500}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              sizes="(min-width: 1024px) 13rem, (min-width: 768px) 30vw, 45vw"
               style={{ aspectRatio: '1 / 1' }}
             />
           </a>

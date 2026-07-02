@@ -20,6 +20,11 @@
 
   --container-content: 49rem;
 
+  /* Preferred content container: full width minus a gutter on each side, capped
+     at a max width. Consumed by the `wrapper` utility below. */
+  --wrapper-max: 56rem;
+  --wrapper-gutter: 2rem;
+
   /* Shared fade-in, exposed as `animate-fade-in` / `animate-fade-in-fast`
      utilities. Used by the project thumbnails and the project modal. */
   --animate-fade-in: fadeIn 0.42s ease-in-out both;
@@ -35,6 +40,13 @@
       transform: translateY(0);
     }
   }
+}
+
+/* Centered, responsive content container. Replaces the fixed-width `w-4xl`:
+   fluid on small screens (full width minus a gutter), capped at `--wrapper-max`. */
+@utility wrapper {
+  width: min(100% - var(--wrapper-gutter), var(--wrapper-max));
+  margin-inline: auto;
 }
 
 /* Base typography. These element defaults style both the hand-written pages

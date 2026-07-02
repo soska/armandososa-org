@@ -30,25 +30,27 @@ const navLinks = [
   </head>
   <body>
     <!-- <Logo /> -->
-    <nav class="flex justify-center gap-4 bg-gray-800">
-      {
-        navLinks.map(([label, href]) => {
-          const current = pathname === href;
-          return (
-            <a
-              class:list={[
-                'm-1.5 block px-3 py-2 text-[0.79rem] tracking-[0.04em] uppercase hover:text-accent',
-                current ? 'text-accent' : 'text-gray-300 hover:bg-gray-900 hover:text-gray-200',
-              ]}
-              href={href}
-              aria-current={current ? 'page' : undefined}
-            >
-              {label}
-            </a>
-          );
-        })
-      }
-    </nav>
+    <div class="bg-gray-800">
+      <nav class="wrapper flex justify-start gap-4">
+        {
+          navLinks.map(([label, href]) => {
+            const current = pathname === href;
+            return (
+              <a
+                class:list={[
+                  'm-1.5 block px-3 py-2 text-[0.79rem] tracking-[0.04em] uppercase hover:text-accent',
+                  current ? 'text-accent' : 'text-gray-300 hover:bg-gray-900 hover:text-gray-200',
+                ]}
+                href={href}
+                aria-current={current ? 'page' : undefined}
+              >
+                {label}
+              </a>
+            );
+          })
+        }
+      </nav>
+    </div>
 
     <main>
       {heading ? <h1 class="mt-0 mb-11 text-left text-heading text-accent">{heading}</h1> : null}

@@ -5,15 +5,21 @@ import { normalizePostPath, sortPosts } from '../lib/posts';
 const posts = sortPosts(await getCollection('posts'));
 ---
 
-<section id="articles" class="mx-auto flex w-4xl flex-col py-6">
+<section
+  id="articles"
+  class="wrapper flex flex-col gap-8 border-b-2 border-gray-800/10 pt-16 pb-24"
+>
   <h2 class="mb-6 font-grotesque text-4xl font-bold text-accent">Articles</h2>
-  <ul class="flex list-none flex-col gap-3 p-0">
+  <ul class="flex list-none flex-col p-0">
     {
       posts.map((post) => {
         const href = `/${normalizePostPath(post.data.path, post.id)}/`;
         return (
           <li>
-            <a href={href} class="text-lg">
+            <a
+              href={href}
+              class="relative -ml-4 block w-fit rounded-md p-3 px-4 text-lg text-gray-700 transition-all duration-210 ease-in-out before:absolute hover:bg-white hover:text-accent hover:shadow-sm"
+            >
               {post.data.title}
             </a>
           </li>
