@@ -5,6 +5,7 @@ import RoleRotator from '../components/RoleRotator';
 import Thumbnails from '../components/Thumbnails.astro';
 import Socials from '../components/Socials.astro';
 import Articles from '../components/Articles.astro';
+import GithubActivity from '../components/GithubActivity.astro';
 import About from '../components/About.astro';
 
 const allProjects = await getCollection('projects');
@@ -24,6 +25,8 @@ const allProjects = await getCollection('projects');
   <Thumbnails projects={allProjects} />
 
   <Articles />
+
+  <GithubActivity />
 
   <About />
 </MainLayout>

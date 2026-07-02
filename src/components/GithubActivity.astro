@@ -1,0 +1,72 @@
+---
+// Static GitHub contribution heatmap. Data is fetched at build time from a
+// no-auth proxy of GitHub's contribution calendar, so the squares are baked
+// into the HTML — no client JS, no runtime requests. It refreshes whenever the
+// site is rebuilt. A failed fetch degrades to rendering nothing (never breaks
+// the build).
+interface Props {
+  username?: string;
+}
+
+interface Day {
+  date: string;
+  count: number;
+  level: 0 | 1 | 2 | 3 | 4;
+}
+
+const { username = 'soska' } = Astro.props;
+
+// GitHub's contribution color scale (level 0–4).
+const COLORS = ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'];
+
+let days: Day[] = [];
+let total = 0;
+
+try {
+  const res = await fetch(`https://github-contributions-api.jogruber.de/v4/${username}?y=last`);
+  if (res.ok) {
+    const data = (await res.json()) as { total: Record<string, number>; contributions: Day[] };
+    days = data.contributions ?? [];
+    total = data.total?.lastYear ?? Object.values(data.total ?? {}).reduce((a, b) => a + b, 0);
+  }
+} catch {
+  // Network/API hiccup at build time — render nothing rather than fail the build.
+  days = [];
+}
+
+// Pad the front so the first cell lands on a Sunday. With `grid-flow-col` +
+// 7 rows, each column then reads as one calendar week (Sun→Sat, top→bottom).
+const leadingPad = days.length ? new Date(`${days[0].date}T00:00:00`).getDay() : 0;
+
+const dateLabel = (iso: string) =>
+  new Date(`${iso}T00:00:00`).toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  });
+---
+
+{
+  days.length > 0 && (
+    <section id="activity" class="wrapper flex flex-col gap-8 border-b-2 border-gray-800/10 pt-16 pb-24">
+      <h2 class="font-grotesque text-4xl font-bold text-accent">GitHub activity</h2>
+      <figure class="m-0 overflow-x-auto">
+        <div class="grid grid-flow-col grid-rows-7 gap-[3px]" role="img" aria-label={`${total} contributions in the last year`}>
+          {Array.from({ length: leadingPad }).map(() => (
+            <div class="h-3 w-3" aria-hidden="true" />
+          ))}
+          {days.map((day) => (
+            <div
+              class="h-3 w-3 rounded-[2px]"
+              style={`background-color:${COLORS[day.level]}`}
+              title={`${day.count} contribution${day.count === 1 ? '' : 's'} on ${dateLabel(day.date)}`}
+            />
+          ))}
+        </div>
+        <figcaption class="mt-4 text-sm text-muted">
+          {total.toLocaleString()} contributions in the last year
+        </figcaption>
+      </figure>
+    </section>
+  )
+}
