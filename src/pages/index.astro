@@ -1,30 +1,13 @@
 ---
-import { getCollection, render } from 'astro:content';
-import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
 import MainLayout from '../layouts/MainLayout.astro';
-// import Bio from '../components/Bio.astro';
 import RoleRotator from '../components/RoleRotator';
 import Thumbnails from '../components/Thumbnails.astro';
 import Socials from '../components/Socials.astro';
-import { resolveProjectImage } from '../lib/projectImages';
+import Articles from '../components/Articles.astro';
+import About from '../components/About.astro';
 
 const allProjects = await getCollection('projects');
-
-// const categoryOrder = ['Open Source', 'Fun Tools'];
-// const categories = categoryOrder
-// .map((category) => ({
-//   category,
-//   projects: allProjects
-//     .filter((project) => project.data.category === category)
-//     .sort((a, b) => a.data.order - b.data.order),
-// }))
-// .filter((group) => group.projects.length > 0);
-
-const rendered = new Map(
-  await Promise.all(
-    allProjects.map(async (project) => [project.id, (await render(project)).Content] as const)
-  )
-);
 ---
 
 <MainLayout title="Armando Sosa">
@@ -39,4 +22,8 @@ const rendered = new Map(
   </div>
 
   <Thumbnails projects={allProjects} />
+
+  <Articles />
+
+  <About />
 </MainLayout>

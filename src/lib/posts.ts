@@ -23,13 +23,3 @@ export function formatPostDate(date: Date): string {
     year: 'numeric',
   }).format(date);
 }
-
-export function formatPostListDate(date: Date): string {
-  return new Intl.DateTimeFormat('en-US', {
-    month: 'long',
-    day: '2-digit',
-    year: 'numeric',
-  })
-    .format(date)
-    .replace(/^(\w+)\s(\d{2}),\s(\d{4})$/, '$2 $1, $3');
-}

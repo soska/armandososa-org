@@ -1,0 +1,24 @@
+---
+import { getCollection } from 'astro:content';
+import { normalizePostPath, sortPosts } from '../lib/posts';
+
+const posts = sortPosts(await getCollection('posts'));
+---
+
+<section id="articles" class="mx-auto flex w-4xl flex-col py-6">
+  <h2 class="mb-6 font-grotesque text-4xl font-bold text-accent">Articles</h2>
+  <ul class="flex list-none flex-col gap-3 p-0">
+    {
+      posts.map((post) => {
+        const href = `/${normalizePostPath(post.data.path, post.id)}/`;
+        return (
+          <li>
+            <a href={href} class="text-lg">
+              {post.data.title}
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
+</section>

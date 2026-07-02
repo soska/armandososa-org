@@ -1,9 +1,9 @@
 ---
-import MainLayout from '../layouts/MainLayout.astro';
 import photo from '../assets/me.jpg';
 ---
 
-<MainLayout title="About Armando Sosa" heading="About Me">
+<section id="about" class="mx-auto flex w-4xl flex-col py-6">
+  <h2 class="mb-6 font-grotesque text-4xl font-bold text-accent">About</h2>
   <img
     src={photo.src}
     width="200"
@@ -35,8 +35,7 @@ import photo from '../assets/me.jpg';
 
     <p>
       I've been working as a remote front-end engineer since 2009 for companies in New York, San
-      Francisco, and Colombia. Currently I am employed by <a href="https://jiveworld.com"
-        >Jiveworld</a
+      Francisco, and Colombia. Currently I am employed by <a href="https://jiveworld.com">Jiveworld</a
       > as a lead engineer.
     </p>
 
@@ -45,4 +44,4 @@ import photo from '../assets/me.jpg';
       send me an electronic letter to <em>arm.sosa[at]gmail.com</em>.
     </p>
   </div>
-</MainLayout>
+</section>
