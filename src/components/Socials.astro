@@ -7,68 +7,27 @@ import GithubIcon from "./icons/GithubIcon.astro";
 ---
 
 <div class="wrapper flex items-center justify-center">
-  <div class="socials">
-    <div>stalk me on</div>
-    <a href="https://twitter.com/soska" target="_blank" rel="noreferrer">
+  <div class="w-full flex flex-wrap items-center gap-2 text-white">
+    <div class="text-stone-300 -mr-2">stalk me on</div>
+    <a href="https://twitter.com/soska" target="_blank" rel="noreferrer" class="inline-flex justify-center items-center gap-2 p-4 rounded opacity-75 hover:opacity-100 transition-opacity">
       <TwitterIcon />
       Twitter / X
     </a>
-    <a href="https://instagram.com/soska" target="_blank" rel="noreferrer">
+    <a href="https://instagram.com/soska" target="_blank" rel="noreferrer" class="inline-flex justify-center items-center gap-2 p-4 rounded opacity-75 hover:opacity-100 transition-opacity">
       <InstagramIcon />
       Instagram
     </a>
-    <a href="https://bsky.app/profile/armandososa.bsky.social" target="_blank" rel="noreferrer">
+    <a href="https://bsky.app/profile/armandososa.bsky.social" target="_blank" rel="noreferrer" class="inline-flex justify-center items-center gap-2 p-4 rounded opacity-75 hover:opacity-100 transition-opacity">
       <BlueskyIcon />
       Bluesky
     </a>
-    <a href="https://dribbble.com/soska" target="_blank" rel="noreferrer">
+    <a href="https://dribbble.com/soska" target="_blank" rel="noreferrer" class="inline-flex justify-center items-center gap-2 p-4 rounded opacity-75 hover:opacity-100 transition-opacity">
       <DribbbleIcon />
       Dribbble
     </a>
-    <a href="https://github.com/soska" target="_blank" rel="noreferrer">
+    <a href="https://github.com/soska" target="_blank" rel="noreferrer" class="inline-flex justify-center items-center gap-2 p-4 rounded opacity-75 hover:opacity-100 transition-opacity">
       <GithubIcon />
       Github
     </a>
   </div>
 </div>
-
-<style>
-  .socials {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--spacing-2);
-  }
-
-  .socials > * {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
-    border-radius: 0.25rem;
-    color: var(--color-surface);
-  }
-
-  .socials div {
-    color: var(--color-sand);
-    margin-right: -0.5rem;
-  }
-
-  .socials a {
-    gap: 0.5rem;
-    opacity: 0.75;
-    transition: opacity 0.2s ease-in-out;
-  }
-
-  .socials a:hover {
-    opacity: 1;
-  }
-
-  :global(.socials svg) {
-    width: 1em;
-    height: 1em;
-    padding: 0;
-    flex-shrink: 0;
-  }
-</style>
