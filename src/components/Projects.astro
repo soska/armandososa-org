@@ -16,7 +16,7 @@ const rendered = new Map(
 );
 
 // Only projects that have a resolvable image, in display order. Computed once and
-// reused for both the thumbnail grid and the modals so they stay in sync.
+// reused for both the project grid and the modals so they stay in sync.
 const visibleProjects = projects
   .slice()
   .sort((a, b) => a.data.order - b.data.order)
@@ -140,7 +140,7 @@ const visibleProjects = projects
   function onHashChange() {
     const modal = currentModal();
     if (!modal) return;
-    // Remember the thumbnail that opened this so we can restore focus on close.
+    // Remember the project card that opened this so we can restore focus on close.
     if (!(lastFocused && lastFocused.matches('[role="dialog"], [role="dialog"] *'))) {
       lastFocused = document.activeElement as HTMLElement | null;
     }

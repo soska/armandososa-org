@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import MainLayout from '../layouts/MainLayout.astro';
 import RoleRotator from '../components/RoleRotator';
-import Thumbnails from '../components/Thumbnails.astro';
+import Projects from '../components/Projects.astro';
 import Socials from '../components/Socials.astro';
 import Articles from '../components/Articles.astro';
 import GithubActivity from '../components/GithubActivity.astro';
@@ -28,7 +28,7 @@ const allProjects = await getCollection('projects');
     <Socials />
   </div>
 
-  <Thumbnails projects={allProjects} />
+  <Projects projects={allProjects} />
 
   <Articles />
 
