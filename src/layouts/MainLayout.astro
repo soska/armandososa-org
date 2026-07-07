@@ -20,7 +20,7 @@ const navLinks = [
 ];
 ---
 
-<html lang="en">
+<html lang="en" class="scroll-smooth motion-reduce:scroll-auto">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -31,20 +31,28 @@ const navLinks = [
   </head>
   <body>
     <!-- <Logo /> -->
-    <div class="fixed top-0 left-0 z-10 p-2">
-      <nav class="flex justify-center bg-gray-800">
+    <div
+      id="site-nav"
+      class="pointer-events-none fixed top-0 left-[50%] z-10 -translate-x-1/2 -translate-y-full py-2 opacity-0 transition-all duration-300"
+    >
+      <nav class="flex justify-center overflow-hidden rounded-sm bg-accent shadow-lg">
         {
           navLinks.map(([label, href]) => {
             // const current = pathname === href;
             return (
               <a
                 class:list={[
-                  'group block px-3 py-2 text-[0.79rem] tracking-[0.04em] uppercase hover:bg-white hover:text-accent',
+                  'group inline-flex items-center gap-1 px-4 py-2 text-[0.79rem] tracking-[0.04em] text-white uppercase hover:bg-white hover:text-accent',
                 ]}
                 href={href}
               >
                 {label}
-                <span class="opacity-0 group-hover:opacity-100">&darr;</span>
+                <span
+                  aria-hidden="true"
+                  class="inline-block -translate-y-full opacity-0 transition-[translate] duration-100 group-hover:translate-y-0 group-hover:opacity-100 group-hover:duration-300"
+                >
+                  &darr;
+                </span>
               </a>
             );
           })
@@ -58,5 +66,28 @@ const navLinks = [
     </main>
 
     <Footer />
+
+    <script>
+      const nav = document.getElementById('site-nav');
+      if (nav) {
+        const setVisible = (visible: boolean) => {
+          nav.classList.toggle('-translate-y-full', !visible);
+          nav.classList.toggle('opacity-0', !visible);
+          nav.classList.toggle('pointer-events-none', !visible);
+        };
+
+        const hero = document.querySelector('[data-hero]');
+        if (!hero) {
+          // Pages without a hero (e.g. articles) show the nav immediately.
+          setVisible(true);
+        } else {
+          const observer = new IntersectionObserver(
+            ([entry]) => setVisible(!entry.isIntersecting),
+            { threshold: 0 }
+          );
+          observer.observe(hero);
+        }
+      }
+    </script>
   </body>
 </html>
