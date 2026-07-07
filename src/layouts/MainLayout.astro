@@ -33,9 +33,9 @@ const navLinks = [
     <!-- <Logo /> -->
     <div
       id="site-nav"
-      class="pointer-events-none fixed top-0 left-[50%] z-10 -translate-x-1/2 -translate-y-full py-2 opacity-0 transition-all duration-300"
+      class="pointer-events-none fixed top-0 right-0 left-0 z-10 -translate-y-full opacity-0 transition-all duration-300 md:right-auto md:left-[50%] md:-translate-x-1/2 md:py-2"
     >
-      <nav class="flex justify-center overflow-hidden rounded-sm bg-accent shadow-lg">
+      <nav class="flex justify-center overflow-hidden bg-accent shadow-lg md:rounded-sm">
         {
           navLinks.map(([label, href]) => {
             // const current = pathname === href;
