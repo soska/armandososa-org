@@ -13,8 +13,9 @@ const { title = 'Armando Sosa', heading } = Astro.props;
 const pathname = Astro.url.pathname;
 
 const navLinks = [
-  ['Home', '/'],
+  // ['Home', '/'],
   ['Articles', '/#articles'],
+  ['Projects', '/#projects'],
   ['About', '/#about'],
 ];
 ---
@@ -30,21 +31,20 @@ const navLinks = [
   </head>
   <body>
     <!-- <Logo /> -->
-    <div class="bg-gray-800">
-      <nav class="wrapper flex justify-start gap-4">
+    <div class="fixed top-0 left-0 z-10 p-2">
+      <nav class="flex justify-center bg-gray-800">
         {
           navLinks.map(([label, href]) => {
-            const current = pathname === href;
+            // const current = pathname === href;
             return (
               <a
                 class:list={[
-                  'm-1.5 block px-3 py-2 text-[0.79rem] tracking-[0.04em] uppercase hover:text-accent',
-                  current ? 'text-accent' : 'text-gray-300 hover:bg-gray-900 hover:text-gray-200',
+                  'group block px-3 py-2 text-[0.79rem] tracking-[0.04em] uppercase hover:bg-white hover:text-accent',
                 ]}
                 href={href}
-                aria-current={current ? 'page' : undefined}
               >
                 {label}
+                <span class="opacity-0 group-hover:opacity-100">&darr;</span>
               </a>
             );
           })

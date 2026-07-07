@@ -1,33 +1,33 @@
 ---
-import TwitterIcon from "./icons/TwitterIcon.astro";
-import InstagramIcon from "./icons/InstagramIcon.astro";
-import BlueskyIcon from "./icons/BlueskyIcon.astro";
-import DribbbleIcon from "./icons/DribbbleIcon.astro";
-import GithubIcon from "./icons/GithubIcon.astro";
+import SocialLink from './SocialLink.astro';
+import TwitterIcon from './icons/TwitterIcon.astro';
+import InstagramIcon from './icons/InstagramIcon.astro';
+import BlueskyIcon from './icons/BlueskyIcon.astro';
+import DribbbleIcon from './icons/DribbbleIcon.astro';
+import GithubIcon from './icons/GithubIcon.astro';
+
+const socials = [
+  { href: 'https://twitter.com/soska', label: 'Twitter / X', Icon: TwitterIcon },
+  { href: 'https://instagram.com/soska', label: 'Instagram', Icon: InstagramIcon },
+  {
+    href: 'https://bsky.app/profile/armandososa.bsky.social',
+    label: 'Bluesky',
+    Icon: BlueskyIcon,
+  },
+  { href: 'https://dribbble.com/soska', label: 'Dribbble', Icon: DribbbleIcon },
+  { href: 'https://github.com/soska', label: 'Github', Icon: GithubIcon },
+];
 ---
 
-<div class="wrapper flex items-center justify-center">
-  <div class="w-full flex flex-wrap items-center gap-2 text-white">
-    <div class="text-stone-300 -mr-2">stalk me on</div>
-    <a href="https://twitter.com/soska" target="_blank" rel="noreferrer" class="inline-flex justify-center items-center gap-2 p-4 rounded opacity-75 hover:opacity-100 transition-opacity">
-      <TwitterIcon />
-      Twitter / X
-    </a>
-    <a href="https://instagram.com/soska" target="_blank" rel="noreferrer" class="inline-flex justify-center items-center gap-2 p-4 rounded opacity-75 hover:opacity-100 transition-opacity">
-      <InstagramIcon />
-      Instagram
-    </a>
-    <a href="https://bsky.app/profile/armandososa.bsky.social" target="_blank" rel="noreferrer" class="inline-flex justify-center items-center gap-2 p-4 rounded opacity-75 hover:opacity-100 transition-opacity">
-      <BlueskyIcon />
-      Bluesky
-    </a>
-    <a href="https://dribbble.com/soska" target="_blank" rel="noreferrer" class="inline-flex justify-center items-center gap-2 p-4 rounded opacity-75 hover:opacity-100 transition-opacity">
-      <DribbbleIcon />
-      Dribbble
-    </a>
-    <a href="https://github.com/soska" target="_blank" rel="noreferrer" class="inline-flex justify-center items-center gap-2 p-4 rounded opacity-75 hover:opacity-100 transition-opacity">
-      <GithubIcon />
-      Github
-    </a>
+<div class="wrapper flex items-center border-t-2 border-white/10 md:justify-start">
+  <div class="flex flex-1 flex-wrap items-center justify-between p-2 text-white md:justify-start">
+    <span class="mr-2 hidden text-white/80 md:block">stalk me on</span>
+    {
+      socials.map(({ href, label, Icon }) => (
+        <SocialLink href={href} label={label}>
+          <Icon />
+        </SocialLink>
+      ))
+    }
   </div>
 </div>
