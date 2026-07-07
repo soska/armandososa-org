@@ -35,7 +35,16 @@ const navLinks = [
       id="site-nav"
       class="pointer-events-none fixed top-0 right-0 left-0 z-10 -translate-y-full opacity-0 transition-all duration-300 md:right-auto md:left-[50%] md:-translate-x-1/2 md:py-2"
     >
-      <nav class="flex justify-center overflow-hidden bg-accent shadow-lg md:rounded-sm">
+      <nav
+        class="flex items-center justify-center overflow-hidden bg-accent shadow-lg md:rounded-sm"
+      >
+        <a
+          class="relative block px-2 py-1.5 text-white/60 after:absolute after:top-1 after:-right-1 after:bottom-1 after:w-[1px] after:bg-white after:content-[''] hover:text-white [&>svg]:size-5"
+          aria-hidden="true"
+          href="#"
+        >
+          <Logo />
+        </a>
         {
           navLinks.map(([label, href]) => {
             // const current = pathname === href;

@@ -7,6 +7,7 @@ import Socials from '../components/Socials.astro';
 import Articles from '../components/Articles.astro';
 import GithubActivity from '../components/GithubActivity.astro';
 import About from '../components/About.astro';
+import Logo from '../components/Logo.astro';
 
 const allProjects = await getCollection('projects');
 ---
@@ -18,9 +19,16 @@ const allProjects = await getCollection('projects');
     class="mx-auto flex h-[40vh] w-full flex-col items-center justify-end bg-accent text-white"
   >
     <div class="wrapper flex flex-col py-8">
-      <h1 class="border-b-4 border-white/60 p-4 font-grotesque text-hero leading-none font-bold">
-        Armando Sosa
-      </h1>
+      <div class="flex flex-row items-end">
+        <h1
+          class="flex flex-row items-center gap-2 border-b-4 border-white/60 p-4 font-grotesque text-hero leading-none font-bold tracking-tight"
+        >
+          <span class="block text-white/60 [&>svg]:size-12" aria-hidden="true">
+            <Logo />
+          </span>
+          Armando Sosa
+        </h1>
+      </div>
       <div class="p-4 font-grotesque text-hero leading-none font-bold">
         <RoleRotator client:load />
       </div>
