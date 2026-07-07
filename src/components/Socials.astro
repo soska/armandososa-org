@@ -1,10 +1,34 @@
+---
+import TwitterIcon from "./icons/TwitterIcon.astro";
+import InstagramIcon from "./icons/InstagramIcon.astro";
+import BlueskyIcon from "./icons/BlueskyIcon.astro";
+import DribbbleIcon from "./icons/DribbbleIcon.astro";
+import GithubIcon from "./icons/GithubIcon.astro";
+---
+
 <div class="wrapper flex items-center justify-center">
   <div class="socials">
     <div>stalk me on</div>
-    <a href="https://twitter.com/soska" target="_blank" rel="noreferrer"> Twitter / X </a>
-    <a href="https://instagram.com/soska" target="_blank" rel="noreferrer"> Instagram </a>
-    <a href="https://dribbble.com/soska" target="_blank" rel="noreferrer"> Dribbble </a>
-    <a href="https://github.com/soska" target="_blank" rel="noreferrer"> Github </a>
+    <a href="https://twitter.com/soska" target="_blank" rel="noreferrer">
+      <TwitterIcon />
+      Twitter / X
+    </a>
+    <a href="https://instagram.com/soska" target="_blank" rel="noreferrer">
+      <InstagramIcon />
+      Instagram
+    </a>
+    <a href="https://bsky.app/profile/armandososa.bsky.social" target="_blank" rel="noreferrer">
+      <BlueskyIcon />
+      Bluesky
+    </a>
+    <a href="https://dribbble.com/soska" target="_blank" rel="noreferrer">
+      <DribbbleIcon />
+      Dribbble
+    </a>
+    <a href="https://github.com/soska" target="_blank" rel="noreferrer">
+      <GithubIcon />
+      Github
+    </a>
   </div>
 </div>
 
@@ -15,24 +39,36 @@
     flex-wrap: wrap;
     align-items: center;
     gap: var(--spacing-2);
-    & * {
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      padding: 1rem;
-      border-radius: 0.25rem;
-      color: var(--color-surface);
-    }
-    & div {
-      color: var(--color-sand);
-      margin-right: -0.5rem;
-    }
-    & a {
-      opacity: 0.75;
-      transition: opacity 0.2s ease-in-out;
-      &:hover {
-        opacity: 1;
-      }
-    }
+  }
+
+  .socials > * {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 0.25rem;
+    color: var(--color-surface);
+  }
+
+  .socials div {
+    color: var(--color-sand);
+    margin-right: -0.5rem;
+  }
+
+  .socials a {
+    gap: 0.5rem;
+    opacity: 0.75;
+    transition: opacity 0.2s ease-in-out;
+  }
+
+  .socials a:hover {
+    opacity: 1;
+  }
+
+  :global(.socials svg) {
+    width: 1em;
+    height: 1em;
+    padding: 0;
+    flex-shrink: 0;
   }
 </style>
