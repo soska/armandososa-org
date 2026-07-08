@@ -2,7 +2,7 @@
 import { Font } from 'astro:assets';
 import '../styles/global.css';
 import Footer from '../components/Footer.astro';
-import Logo from '../components/Logo.astro';
+import Nav from '../components/Nav.astro';
 
 interface Props {
   title?: string;
@@ -10,14 +10,6 @@ interface Props {
 }
 
 const { title = 'Armando Sosa', heading } = Astro.props;
-const pathname = Astro.url.pathname;
-
-const navLinks = [
-  // ['Home', '/'],
-  ['Articles', '/#articles'],
-  ['Projects', '/#projects'],
-  ['About', '/#about'],
-];
 ---
 
 <html lang="en" class="scroll-smooth motion-reduce:scroll-auto">
@@ -30,44 +22,7 @@ const navLinks = [
     <link rel="icon" href="/favicon.ico" />
   </head>
   <body>
-    <!-- <Logo /> -->
-    <div
-      id="site-nav"
-      class="pointer-events-none fixed top-0 right-0 left-0 z-10 -translate-y-full opacity-0 transition-all duration-300 md:right-auto md:left-[50%] md:-translate-x-1/2 md:py-2"
-    >
-      <nav
-        class="flex items-center justify-center overflow-hidden bg-accent shadow-lg md:rounded-sm"
-      >
-        <a
-          class="relative block px-2 py-1.5 text-white/60 after:absolute after:top-1 after:-right-1 after:bottom-1 after:w-[1px] after:bg-white after:content-[''] hover:text-white [&>svg]:size-5"
-          aria-hidden="true"
-          href="#"
-        >
-          <Logo />
-        </a>
-        {
-          navLinks.map(([label, href]) => {
-            // const current = pathname === href;
-            return (
-              <a
-                class:list={[
-                  'group inline-flex items-center gap-1 px-4 py-2 text-[0.79rem] tracking-[0.04em] text-white uppercase hover:bg-white hover:text-accent',
-                ]}
-                href={href}
-              >
-                {label}
-                <span
-                  aria-hidden="true"
-                  class="inline-block -translate-y-full opacity-0 transition-[translate] duration-100 group-hover:translate-y-0 group-hover:opacity-100 group-hover:duration-300"
-                >
-                  &darr;
-                </span>
-              </a>
-            );
-          })
-        }
-      </nav>
-    </div>
+    <Nav />
 
     <main>
       {heading ? <h1 class="mt-0 mb-11 text-left text-heading text-accent">{heading}</h1> : null}
@@ -75,28 +30,5 @@ const navLinks = [
     </main>
 
     <Footer />
-
-    <script>
-      const nav = document.getElementById('site-nav');
-      if (nav) {
-        const setVisible = (visible: boolean) => {
-          nav.classList.toggle('-translate-y-full', !visible);
-          nav.classList.toggle('opacity-0', !visible);
-          nav.classList.toggle('pointer-events-none', !visible);
-        };
-
-        const hero = document.querySelector('[data-hero]');
-        if (!hero) {
-          // Pages without a hero (e.g. articles) show the nav immediately.
-          setVisible(true);
-        } else {
-          const observer = new IntersectionObserver(
-            ([entry]) => setVisible(!entry.isIntersecting),
-            { threshold: 0 }
-          );
-          observer.observe(hero);
-        }
-      }
-    </script>
   </body>
 </html>

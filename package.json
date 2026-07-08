@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@astrojs/react": "^5.0.0",
+    "@lucide/astro": "^1.23.0",
     "astro": "^6.0.2",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"

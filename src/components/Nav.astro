@@ -1,0 +1,87 @@
+---
+import Logo from './Logo.astro';
+import { ArrowDownIcon } from '@lucide/astro';
+
+const navLinks = [
+  // ['Home', '/'],
+  ['Articles', '/#articles'],
+  ['Projects', '/#projects'],
+  ['About', '/#about'],
+];
+---
+
+<div
+  id="site-nav"
+  class="pointer-events-none fixed top-0 right-0 left-0 z-10 -translate-y-full opacity-0 transition-all duration-300 md:right-auto md:left-[50%] md:-translate-x-1/2 md:py-2"
+>
+  <nav class="flex items-center justify-center overflow-hidden bg-accent shadow-lg md:rounded-sm">
+    <a
+      class="relative block px-2 py-1.5 text-white/60 after:absolute after:top-1 after:-right-1 after:bottom-1 after:w-[1px] after:bg-white after:content-[''] hover:text-white [&>svg]:size-5"
+      aria-hidden="true"
+      href="#"
+    >
+      <Logo />
+    </a>
+    {
+      navLinks.map(([label, href]) => {
+        return (
+          <a
+            class:list={[
+              'group inline-flex items-center gap-1 px-4 py-2 text-[0.79rem] tracking-[0.04em] text-white uppercase hover:bg-white hover:text-accent',
+            ]}
+            href={href}
+          >
+            {label}
+            <span
+              aria-hidden="true"
+              class="inline-block -translate-y-full opacity-0 transition-[translate,rotate] duration-100 group-hover:translate-y-0 group-hover:opacity-100 group-hover:duration-300 data-[scroll-direction=up]:rotate-180"
+              data-scroll-arrow
+            >
+              <ArrowDownIcon class="size-4" />
+            </span>
+          </a>
+        );
+      })
+    }
+  </nav>
+</div>
+
+<script>
+  const nav = document.getElementById('site-nav');
+  if (nav) {
+    const setVisible = (visible: boolean) => {
+      nav.classList.toggle('-translate-y-full', !visible);
+      nav.classList.toggle('opacity-0', !visible);
+      nav.classList.toggle('pointer-events-none', !visible);
+    };
+
+    const updateScrollDirections = () => {
+      const links = nav.querySelectorAll<HTMLAnchorElement>('a[href*="#"]');
+
+      for (const link of links) {
+        const url = new URL(link.href);
+        const target = url.hash ? document.querySelector(url.hash) : null;
+        const arrow = link.querySelector<HTMLElement>('[data-scroll-arrow]');
+        if (!target || !arrow || url.pathname !== location.pathname) continue;
+
+        arrow.dataset.scrollDirection = target.getBoundingClientRect().top < 0 ? 'up' : 'down';
+      }
+    };
+
+    updateScrollDirections();
+    window.addEventListener('scroll', updateScrollDirections, { passive: true });
+    window.addEventListener('resize', updateScrollDirections);
+    window.addEventListener('hashchange', updateScrollDirections);
+
+    const hero = document.querySelector('[data-hero]');
+    if (!hero) {
+      // Pages without a hero (e.g. articles) show the nav immediately.
+      setVisible(true);
+    } else {
+      const observer = new IntersectionObserver(([entry]) => setVisible(!entry.isIntersecting), {
+        threshold: 0,
+      });
+      observer.observe(hero);
+    }
+  }
+</script>
