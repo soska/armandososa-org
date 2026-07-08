@@ -8,6 +8,7 @@ import Articles from '../components/Articles.astro';
 import GithubActivity from '../components/GithubActivity.astro';
 import About from '../components/About.astro';
 import Logo from '../components/Logo.astro';
+import HeroStrings from '../components/HeroStrings.astro';
 
 const allProjects = await getCollection('projects');
 ---
@@ -16,8 +17,9 @@ const allProjects = await getCollection('projects');
   <!-- home hero section -->
   <div
     data-hero
-    class="mx-auto flex h-[40vh] max-h-[600px] min-h-[400px] w-full flex-col items-center justify-end bg-accent text-white"
+    class="relative mx-auto flex h-[40vh] max-h-[600px] min-h-[400px] w-full flex-col items-center justify-end overflow-hidden bg-accent text-white isolate"
   >
+    <HeroStrings />
     <div class="wrapper flex flex-col py-8">
       <div class="flex flex-row items-end">
         <h1

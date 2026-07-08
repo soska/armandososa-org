@@ -1,0 +1,189 @@
+---
+// Animated "vibrating strings" background for the hero. Horizontal white
+// lines simulated as 1D strings (discrete wave equation): the cursor
+// displaces nearby points and the tension term propagates the ripple along
+// the line before damping settles it back to rest.
+//
+// Sits behind the hero content via `-z-10` (the hero must be `relative
+// isolate`) and ignores pointer events so it never blocks clicks/links.
+---
+
+<canvas
+  data-hero-strings
+  aria-hidden="true"
+  class="pointer-events-none absolute inset-0 -z-10 h-full w-full"></canvas>
+
+<script>
+  // ── Tunables ──────────────────────────────────────────────────────────────
+  const CONFIG = {
+    spacing: 34, // target vertical gap between strings (px); count adapts to height
+    segments: 90, // points per string — higher = smoother, slightly costlier
+    tension: 0.22, // neighbor coupling → how fast ripples travel (~0.05–0.4)
+    stiffness: 0.006, // pull back to the rest line (higher = stiffer, calmer)
+    damping: 0.94, // energy retained each frame (lower = settles faster)
+    radius: 130, // cursor influence radius (px)
+    grab: 0.18, // how strongly the cursor pulls nearby points toward it (0–1)
+    velocityBoost: 0.05, // extra vibration from cursor speed
+    color: '255, 255, 255', // string color (rgb)
+    baseAlpha: 0.1, // opacity at rest
+    activeAlpha: 0.45, // extra opacity added at full displacement
+    alphaDisplacement: 40, // displacement (px) that maps to full activeAlpha
+    lineWidth: 1,
+  };
+  // ──────────────────────────────────────────────────────────────────────────
+
+  const canvas = document.querySelector<HTMLCanvasElement>('canvas[data-hero-strings]');
+  const ctx = canvas?.getContext('2d');
+
+  if (canvas && ctx) {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let width = 0;
+    let height = 0;
+    type Line = { baseY: number; d: Float32Array; v: Float32Array };
+    let lines: Line[] = [];
+
+    function build() {
+      const count = Math.max(2, Math.round(height / CONFIG.spacing) - 1);
+      lines = Array.from({ length: count }, (_, i) => ({
+        baseY: (height * (i + 1)) / (count + 1),
+        d: new Float32Array(CONFIG.segments + 1),
+        v: new Float32Array(CONFIG.segments + 1),
+      }));
+    }
+
+    function resize() {
+      const rect = canvas!.getBoundingClientRect();
+      width = rect.width;
+      height = rect.height;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas!.width = Math.round(width * dpr);
+      canvas!.height = Math.round(height * dpr);
+      ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
+      build();
+    }
+
+    // ── Cursor tracking ──────────────────────────────────────────────────────
+    const mouse = { x: 0, y: 0, px: 0, py: 0, active: false, primed: false };
+
+    function onMove(event: PointerEvent) {
+      const rect = canvas!.getBoundingClientRect();
+      mouse.x = event.clientX - rect.left;
+      mouse.y = event.clientY - rect.top;
+      if (!mouse.primed) {
+        mouse.px = mouse.x;
+        mouse.py = mouse.y;
+        mouse.primed = true;
+      }
+      mouse.active = true;
+    }
+
+    // Release the strings when the cursor leaves the viewport or window blurs,
+    // so a string never stays "held" at the last cursor position.
+    function release() {
+      mouse.active = false;
+      mouse.primed = false;
+    }
+
+    window.addEventListener('pointermove', onMove, { passive: true });
+    document.addEventListener('pointerleave', release);
+    window.addEventListener('blur', release);
+
+    // ── Physics ────────────────────────────────────────────────────────────
+    function step() {
+      const { segments, tension, stiffness, damping, radius, grab, velocityBoost } = CONFIG;
+      const mvy = mouse.y - mouse.py;
+
+      for (const line of lines) {
+        const { d, v, baseY } = line;
+
+        // Wave equation: acceleration from neighbor curvature, minus a weak
+        // spring back to the rest line.
+        for (let i = 1; i < segments; i++) {
+          const force = tension * (d[i - 1] + d[i + 1] - 2 * d[i]) - stiffness * d[i];
+          v[i] = (v[i] + force) * damping;
+        }
+
+        // Pin the endpoints, then integrate.
+        d[0] = d[segments] = 0;
+        v[0] = v[segments] = 0;
+        for (let i = 1; i < segments; i++) d[i] += v[i];
+
+        // Cursor pulls nearby points toward it; its speed adds vibration.
+        if (mouse.active) {
+          for (let i = 1; i < segments; i++) {
+            const x = (i / segments) * width;
+            const dist = Math.hypot(x - mouse.x, baseY + d[i] - mouse.y);
+            if (dist < radius) {
+              const pull = 1 - dist / radius;
+              d[i] += (mouse.y - baseY - d[i]) * pull * grab;
+              v[i] += mvy * pull * velocityBoost;
+            }
+          }
+        }
+      }
+
+      mouse.px = mouse.x;
+      mouse.py = mouse.y;
+    }
+
+    // ── Render ───────────────────────────────────────────────────────────────
+    function draw() {
+      const { segments, color, baseAlpha, activeAlpha, alphaDisplacement, lineWidth } = CONFIG;
+      ctx!.clearRect(0, 0, width, height);
+      ctx!.lineWidth = lineWidth;
+      ctx!.lineCap = 'round';
+
+      for (const line of lines) {
+        const { d, baseY } = line;
+
+        // Brighten a string in proportion to how far it's currently displaced.
+        let peak = 0;
+        for (let i = 1; i < segments; i++) {
+          const a = Math.abs(d[i]);
+          if (a > peak) peak = a;
+        }
+        const alpha = baseAlpha + Math.min(peak / alphaDisplacement, 1) * activeAlpha;
+        ctx!.strokeStyle = `rgba(${color}, ${alpha})`;
+
+        // Smooth the point series with quadratic curves through segment midpoints.
+        ctx!.beginPath();
+        ctx!.moveTo(0, baseY + d[0]);
+        for (let i = 1; i < segments; i++) {
+          const cx = (i / segments) * width;
+          const cy = baseY + d[i];
+          const nx = ((i + 1) / segments) * width;
+          const ny = baseY + d[i + 1];
+          ctx!.quadraticCurveTo(cx, cy, (cx + nx) / 2, (cy + ny) / 2);
+        }
+        ctx!.lineTo(width, baseY + d[segments]);
+        ctx!.stroke();
+      }
+    }
+
+    // ── Loop ─────────────────────────────────────────────────────────────────
+    let raf = 0;
+    function loop() {
+      step();
+      draw();
+      raf = requestAnimationFrame(loop);
+    }
+
+    resize();
+    window.addEventListener('resize', resize);
+
+    if (prefersReducedMotion) {
+      draw(); // Static lines, no animation or interaction.
+    } else {
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          cancelAnimationFrame(raf);
+          raf = 0;
+        } else if (!raf) {
+          loop();
+        }
+      });
+      loop();
+    }
+  }
+</script>
