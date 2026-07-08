@@ -24,8 +24,9 @@ const visibleProjects = projects
   .filter((project) => resolveProjectImage(project.id, project.data.image) !== undefined);
 ---
 
-<div class="wrapper flex flex-col gap-8 border-b-2 border-gray-800/10 pb-24" id="projects">
-  <h2 class="relative font-grotesque text-4xl font-bold text-accent">Recent passion projects</h2>
+<section class="bg-surface" id="projects">
+  <div class="wrapper flex flex-col gap-8 py-20 md:py-24">
+  <h2 class="relative mt-0 font-grotesque text-4xl font-bold text-accent">Recent passion projects</h2>
   <div class="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
     {
       visibleProjects.map((project, index) => {
@@ -54,7 +55,8 @@ const visibleProjects = projects
       })
     }
   </div>
-</div>
+  </div>
+</section>
 
 {
   visibleProjects.map((project) => {
@@ -74,7 +76,7 @@ const visibleProjects = projects
           aria-label="Close"
           tabindex="-1"
         />
-        <div class="relative z-1 max-h-[90vh] w-full max-w-2xl overflow-auto rounded-[1.25rem] bg-white p-0 shadow-2xl group-target:animate-fade-in-fast motion-reduce:animate-none">
+        <div class="relative z-1 max-h-[90vh] w-full max-w-2xl overflow-auto rounded-[1.25rem] bg-white p-0 shadow-2xl animate-fade-in-fast motion-reduce:animate-none">
           <a
             href="#"
             class="flex flex-row items-center gap-1 px-4 py-3 text-gray-500"

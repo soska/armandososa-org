@@ -48,8 +48,9 @@ const dateLabel = (iso: string) =>
 
 {
   days.length > 0 && (
-    <section id="activity" class="wrapper flex flex-col gap-8 border-b-2 border-gray-800/10 pb-24">
-      <h2 class="font-grotesque text-4xl font-bold text-accent">GitHub activity</h2>
+    <section id="activity" class="bg-surface">
+      <div class="wrapper flex flex-col gap-8 py-20 md:py-24">
+      <h2 class="mt-0 font-grotesque text-4xl font-bold text-accent">GitHub activity</h2>
       <figure class="m-0 overflow-x-auto">
         <div
           class="grid grid-flow-col grid-rows-7 gap-[3px]"
@@ -71,6 +72,7 @@ const dateLabel = (iso: string) =>
           {total.toLocaleString()} contributions in the last year
         </figcaption>
       </figure>
+      </div>
     </section>
   )
 }

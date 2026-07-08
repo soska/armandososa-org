@@ -6,8 +6,9 @@ import { ArrowRightIcon } from '@lucide/astro';
 const posts = sortPosts(await getCollection('posts'));
 ---
 
-<section id="articles" class="wrapper flex flex-col gap-8 border-b-2 border-gray-800/10 pb-24">
-  <h2 class="mb-6 font-grotesque text-4xl font-bold text-accent">Articles</h2>
+<section id="articles" class="bg-blush">
+  <div class="wrapper flex flex-col gap-8 py-20 md:py-24">
+  <h2 class="mt-0 mb-6 font-grotesque text-4xl font-bold text-accent">Articles</h2>
   <ul class="flex list-none flex-col p-0">
     {
       posts.map((post) => {
@@ -26,4 +27,5 @@ const posts = sortPosts(await getCollection('posts'));
       })
     }
   </ul>
+  </div>
 </section>

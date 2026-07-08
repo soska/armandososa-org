@@ -10,6 +10,10 @@
   --color-accent: tomato;
   --color-line: #f2f2f2;
 
+  /* Warm band color used to alternate section backgrounds (in place of the old
+     thin divider lines). Pairs with `surface` white and the tomato accent. */
+  --color-blush: #fdf2ec;
+
   --font-grotesque: var(--font-bricolage-grotesque), Georgia, serif;
   --font-sans: var(--font-grotesque);
   --font-mono: Menlo, Monaco, Consolas, 'Andale Mono', 'Ubuntu Mono', monospace;
