@@ -24,6 +24,12 @@
     radius: 130, // cursor influence radius (px)
     grab: 0.18, // how strongly the cursor pulls nearby points toward it (0–1)
     velocityBoost: 0.11, // extra vibration from cursor speed
+    // Ambient turbulence — random plucks that keep the effect alive without a
+    // cursor (the only source of motion on touch devices). Always on; subtle
+    // enough to sit under the cursor interaction on desktop.
+    ambient: true, // enable random background plucks
+    ambientInterval: [500, 1800], // ms between plucks (random in range)
+    ambientStrength: 5, // impulse strength of each pluck
     color: '255, 255, 125', // string color (rgb triplet)
     blendMode: 'screen', // how the canvas blends over the hero bg: 'normal',
     // 'screen', 'overlay', 'soft-light', 'plus-lighter', 'multiply', …
@@ -167,9 +173,29 @@
       }
     }
 
+    // ── Ambient turbulence ─────────────────────────────────────────────────
+    // Kick a random point on a random string so the wave physics ripples out.
+    function pluck(strength: number) {
+      if (!lines.length) return;
+      const { segments } = CONFIG;
+      const line = lines[(Math.random() * lines.length) | 0];
+      const i = 1 + ((Math.random() * (segments - 1)) | 0);
+      const impulse = (Math.random() < 0.5 ? -1 : 1) * strength * (0.5 + Math.random());
+      line.v[i] += impulse;
+      if (i > 1) line.v[i - 1] += impulse * 0.5;
+      if (i < segments - 1) line.v[i + 1] += impulse * 0.5;
+    }
+
     // ── Loop ─────────────────────────────────────────────────────────────────
     let raf = 0;
-    function loop() {
+    let nextPluck = 0;
+    function loop(now: number) {
+      const { ambient, ambientInterval, ambientStrength } = CONFIG;
+      if (ambient && now >= nextPluck) {
+        pluck(ambientStrength);
+        nextPluck =
+          now + ambientInterval[0] + Math.random() * (ambientInterval[1] - ambientInterval[0]);
+      }
       step();
       draw();
       raf = requestAnimationFrame(loop);
@@ -186,10 +212,10 @@
           cancelAnimationFrame(raf);
           raf = 0;
         } else if (!raf) {
-          loop();
+          loop(performance.now());
         }
       });
-      loop();
+      loop(performance.now());
     }
   }
 </script>
