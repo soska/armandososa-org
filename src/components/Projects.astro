@@ -41,7 +41,7 @@ const visibleProjects = projects
             <Image
               src={image}
               alt={project.data.title}
-              class="aspect-square w-full scale-100 overflow-hidden rounded-3xl border-0 border-white bg-white object-cover shadow-lg transition-all duration-210 ease-in-out hover:scale-110 hover:border-4 hover:border-white hover:shadow-2xl"
+              class="ease-[cubic-bezier(1, 0, 0, 1)] aspect-square w-full scale-100 overflow-hidden rounded-3xl border-0 border-white bg-white object-cover shadow-lg transition-all duration-310 hover:scale-110 hover:border-4 hover:border-white hover:shadow-2xl"
               loading="lazy"
               fetchpriority="high"
               width={500}
@@ -93,24 +93,25 @@ const visibleProjects = projects
               height={600}
             />
           </div>
-          <div>
+          <div class="p-6">
             <h2 id={`modal-title-${project.id}`} class="mt-0 mb-4">
-              {project.data.title}
+              <a
+                href={project.data.url}
+                class="flex items-center gap-2 text-2xl font-bold text-accent hover:underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {project.data.title}
+                <span class="text-gray-500">
+                  <ExternalLink class="size-4" aria-hidden="true" />
+                </span>
+              </a>
             </h2>
             {Description && (
-              <div class="prose max-w-none [&_p:last-child]:mb-0">
+              <div class="prose max-w-none">
                 <Description />
               </div>
             )}
-            <a
-              href={project.data.url}
-              class="mt-6 inline-flex items-center gap-2 font-bold"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Visit site
-              <ExternalLink class="size-4" aria-hidden="true" />
-            </a>
           </div>
         </div>
       </div>

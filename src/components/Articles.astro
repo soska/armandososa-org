@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import { normalizePostPath, sortPosts } from '../lib/posts';
+import { ArrowRightIcon } from '@lucide/astro';
 
 const posts = sortPosts(await getCollection('posts'));
 ---
@@ -15,9 +16,10 @@ const posts = sortPosts(await getCollection('posts'));
           <li>
             <a
               href={href}
-              class="relative -ml-4 block w-fit rounded-md p-3 px-4 text-lg text-gray-700 transition-all duration-210 ease-in-out before:absolute hover:bg-white hover:text-accent hover:shadow-sm"
+              class="group relative flex flex-row items-center gap-2 border-b-2 border-accent/10 px-4 py-6 text-lg text-gray-700 transition-all duration-210 ease-in-out focus:bg-white focus:text-accent focus:ring-1 focus:ring-accent/20 focus:outline-none active:text-accent"
             >
-              {post.data.title}
+              <span class="group-hover:text-accent">{post.data.title}</span>
+              <ArrowRightIcon class="size-6 opacity-50 transition-transform duration-210 ease-in-out group-hover:translate-x-2 group-hover:opacity-100" />
             </a>
           </li>
         );
