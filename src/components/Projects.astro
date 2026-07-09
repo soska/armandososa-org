@@ -10,15 +10,17 @@ interface Props {
 }
 
 const { projects } = Astro.props;
+const publishedProjects = projects.filter((project) => project.data.published);
+
 const rendered = new Map(
   await Promise.all(
-    projects.map(async (project) => [project.id, (await render(project)).Content] as const)
+    publishedProjects.map(async (project) => [project.id, (await render(project)).Content] as const)
   )
 );
 
-// Only projects that have a resolvable image, in display order. Computed once and
+// Only published projects that have a resolvable image, in display order. Computed once and
 // reused for both the project grid and the modals so they stay in sync.
-const visibleProjects = projects
+const visibleProjects = publishedProjects
   .slice()
   .sort((a, b) => a.data.order - b.data.order)
   .filter((project) => resolveProjectImage(project.id, project.data.image) !== undefined);

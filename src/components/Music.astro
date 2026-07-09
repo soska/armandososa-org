@@ -1,0 +1,205 @@
+---
+import { CirclePlay, ExternalLink, Music2 } from '@lucide/astro';
+
+const artistLinks = {
+  youtube: 'https://www.youtube.com/channel/UChLJSdV8ewJiF4QWhngXxBA',
+  spotify: 'https://open.spotify.com/search/Inconforme%20Armando%20Sosa',
+  apple: 'https://music.apple.com/us/search?term=Inconforme%20Armando%20Sosa',
+};
+
+const songs = [
+  {
+    title: 'Entera Consagración',
+    url: 'https://www.youtube.com/watch?v=bjS2Von5Hj8',
+    videoId: 'bjS2Von5Hj8',
+    apple: 'https://music.apple.com/us/album/entera-consagraci%C3%B3n/1789990550?i=1789990553',
+    blurb:
+      'A prayer of surrender dressed in warm indie textures — for the slow work of giving every part back to God.',
+  },
+  {
+    title: 'Es Temporal',
+    url: 'https://www.youtube.com/watch?v=bjuo7RbqzUU',
+    videoId: 'bjuo7RbqzUU',
+    apple: 'https://music.apple.com/us/album/es-temporal/1789990550?i=1789990551',
+    blurb:
+      'A reminder that the present weight is not the final word: everything temporary points past itself.',
+  },
+  {
+    title: 'Infinito Amor (A Través Del Universo)',
+    url: 'https://www.youtube.com/watch?v=piyRq1vfOHY',
+    videoId: 'piyRq1vfOHY',
+    apple:
+      'https://music.apple.com/us/album/infinito-amor-a-trav%C3%A9s-del-universo/1789990550?i=1789990552',
+    blurb:
+      'Cosmic language for a very personal hope: the love of God stretching farther than imagination can travel.',
+  },
+  {
+    title: 'Dimensiones',
+    url: 'https://www.youtube.com/watch?v=ROmXgqsGSpY',
+    videoId: 'ROmXgqsGSpY',
+    apple: 'https://music.apple.com/us/album/dimensiones/1789990550?i=1789990554',
+    blurb:
+      'A spacious track about faith that reaches beyond the flat edges of what we can measure or explain.',
+  },
+  {
+    title: 'Pasaporte Temporal',
+    url: 'https://www.youtube.com/watch?v=5bjlwFPVWKo',
+    videoId: '5bjlwFPVWKo',
+    apple: 'https://music.apple.com/us/album/pasaporte-temporal/1789990550?i=1789990555',
+    blurb: 'A pilgrim song — carrying the tension of living here, but not belonging only here.',
+  },
+  {
+    title: 'Dios Con Nosotros Es',
+    url: 'https://www.youtube.com/watch?v=fc9fMb2zi68',
+    videoId: 'fc9fMb2zi68',
+    apple:
+      'https://music.apple.com/us/album/dios-con-nosotros-es-feat-armando-sosa-alejandra-enr%C3%ADquez/1719114728?i=1719114729',
+    blurb: 'A collaborative Christmas release celebrating Emmanuel — God near, God with us.',
+  },
+  {
+    title: '¡Ha Nacido El Rey!',
+    url: 'https://www.youtube.com/watch?v=OmX1asiDrVo',
+    videoId: 'OmX1asiDrVo',
+    blurb: 'A bright Spanish Christmas song announcing the joy and arrival of the King.',
+  },
+  {
+    title: 'Día a día',
+    url: 'https://www.youtube.com/watch?v=91RiiAn8HKg',
+    videoId: '91RiiAn8HKg',
+    blurb: 'A daily-faith song for ordinary obedience, ordinary grace, and ordinary dependence.',
+  },
+  {
+    title: 'La Red',
+    url: 'https://www.youtube.com/watch?v=vhTkrFQX95U',
+    videoId: 'vhTkrFQX95U',
+    blurb:
+      'An early Inconforme track about the nets that catch us — and the grace that calls us out.',
+  },
+  {
+    title: 'Me Basta Tu Gracia',
+    url: 'https://www.youtube.com/watch?v=m6iqX5jFT5M',
+    videoId: 'm6iqX5jFT5M',
+    blurb: 'A simple confession: grace is not a supplement. It is enough.',
+  },
+];
+
+const spotifySearch = (title: string) =>
+  `https://open.spotify.com/search/${encodeURIComponent(`${title} Inconforme`)}`;
+---
+
+<section id="music" class="bg-blush">
+  <div class="wrapper flex flex-col gap-10 py-20 md:py-24">
+    <div class="grid gap-6 md:grid-cols-[1.15fr_0.85fr] md:items-end">
+      <div>
+        <p
+          class="mb-2 inline-flex items-center gap-2 rounded-full bg-white px-3 py-1 text-sm font-bold tracking-wide text-accent uppercase shadow-sm"
+        >
+          <Music2 class="size-4" aria-hidden="true" />
+          Music
+        </p>
+        <h2
+          class="mt-0 mb-4 font-grotesque text-5xl font-bold tracking-tight text-accent md:text-6xl"
+        >
+          Inconforme
+        </h2>
+        <p class="mb-0 max-w-2xl text-lg text-gray-700 md:text-xl">
+          I release indie Christian music in Spanish under the name <strong>Inconforme</strong> — songs
+          about surrender, hope, and learning to live like this world is not the whole story.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap gap-3 md:justify-end">
+        <a
+          href={artistLinks.youtube}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2 font-bold text-white shadow-md transition hover:-translate-y-0.5 hover:bg-[crimson] hover:text-white"
+        >
+          <CirclePlay class="size-4" aria-hidden="true" />
+          YouTube
+        </a>
+        <a
+          href={artistLinks.spotify}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 font-bold text-accent shadow-sm transition hover:-translate-y-0.5 hover:text-[crimson]"
+        >
+          Spotify
+          <ExternalLink class="size-4" aria-hidden="true" />
+        </a>
+        <a
+          href={artistLinks.apple}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 font-bold text-accent shadow-sm transition hover:-translate-y-0.5 hover:text-[crimson]"
+        >
+          Apple Music
+          <ExternalLink class="size-4" aria-hidden="true" />
+        </a>
+      </div>
+    </div>
+
+    <div class="grid gap-5 md:grid-cols-2">
+      {
+        songs.map((song) => (
+          <article class="group overflow-hidden ring-accent/5 transition duration-200">
+            {/* <a
+              href={song.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Listen to ${song.title} on YouTube`}
+            >
+              <img
+                src={`https://i.ytimg.com/vi/${song.videoId}/hqdefault.jpg`}
+                alt=""
+                loading="lazy"
+                class="h-48 w-full object-cover sm:h-full sm:min-h-40"
+              />
+            </a> */}
+            <div class="flex h-full flex-col">
+              <h3 class="mt-0 mb-2 text-xl leading-tight font-black">
+                <a
+                  href={song.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-accent group-hover:text-[crimson]"
+                >
+                  {song.title}
+                </a>
+              </h3>
+              <p class="mb-4 text-sm leading-6 text-gray-600">{song.blurb}</p>
+              <div class="mt-auto flex flex-wrap gap-2 text-xs font-bold tracking-wide uppercase">
+                <a
+                  href={song.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-1 rounded-full bg-accent/10 px-2.5 py-1 text-accent hover:bg-accent hover:text-white"
+                >
+                  <CirclePlay class="size-3.5" aria-hidden="true" /> YouTube
+                </a>
+                <a
+                  href={spotifySearch(song.title)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="rounded-full bg-gray-100 px-2.5 py-1 text-gray-500 hover:bg-accent hover:text-white"
+                >
+                  Spotify
+                </a>
+                {song.apple ? (
+                  <a
+                    href={song.apple}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="rounded-full bg-gray-100 px-2.5 py-1 text-gray-500 hover:bg-accent hover:text-white"
+                  >
+                    Apple Music
+                  </a>
+                ) : null}
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

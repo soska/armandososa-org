@@ -4,6 +4,7 @@ url: https://palabrije.com
 image: ./palabrije.png
 category: Featured Work
 order: 3
+published: true
 ---
 
 Palabrije is a word puzzle that works across several languages, so the same game feels at home whether you're playing in Spanish, English, or another tongue. It's a quick, daily kind of puzzle: easy to pick up, easy to share, hard to put down.

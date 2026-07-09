@@ -4,6 +4,7 @@ url: https://sd.dnioccidente.com
 image: ./senderodigital.png
 category: Featured Work
 order: -1
+published: true
 ---
 
 Sendero Digital is an e-learning platform built for members of the Church of the Nazarene in México. It gives congregations a single place to take courses, follow lessons at their own pace, and pick up where they left off, all in Spanish and on whatever device they happen to have on hand.
