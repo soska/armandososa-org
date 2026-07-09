@@ -25,36 +25,41 @@ const visibleProjects = projects
 ---
 
 <section class="bg-surface" id="projects">
-  <div class="wrapper flex flex-col gap-8 py-20 md:py-24">
-  <h2 class="relative mt-0 font-grotesque text-4xl font-bold text-accent">Recent passion projects</h2>
-  <div class="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
-    {
-      visibleProjects.map((project, index) => {
-        const image = resolveProjectImage(project.id, project.data.image)!;
-        return (
-          <a
-            href={`#project-${project.id}`}
-            class="block animate-fade-in motion-reduce:animate-none"
-            aria-haspopup="dialog"
-            aria-label={`Open details for ${project.data.title}`}
-            style={{ animationDelay: `${index * 200}ms` }}
-          >
-            <Image
-              src={image}
-              alt={project.data.title}
-              class="ease-[cubic-bezier(1, 0, 0, 1)] aspect-square w-full scale-100 overflow-hidden rounded-3xl border-0 border-white bg-white object-cover shadow-lg transition-all duration-310 hover:scale-110 hover:border-4 hover:border-white hover:shadow-2xl"
-              loading="lazy"
-              fetchpriority="high"
-              width={500}
-              height={500}
-              sizes="(min-width: 1024px) 13rem, (min-width: 768px) 30vw, 45vw"
-              style={{ aspectRatio: '1 / 1' }}
-            />
-          </a>
-        );
-      })
-    }
-  </div>
+  <div class="wrapper flex flex-col gap-12 py-20 md:py-24">
+    <h2
+      class="relative mt-0 flex gap-2 font-grotesque text-6xl font-bold tracking-tight text-accent"
+    >
+      My projects
+      <span class="block h-full w-6 animate-blink bg-gray-100" aria-hidden="true">&nbsp;</span>
+    </h2>
+    <div class="grid grid-cols-2 gap-8 md:grid-cols-3">
+      {
+        visibleProjects.map((project, index) => {
+          const image = resolveProjectImage(project.id, project.data.image)!;
+          return (
+            <a
+              href={`#project-${project.id}`}
+              class="block animate-fade-in motion-reduce:animate-none"
+              aria-haspopup="dialog"
+              aria-label={`Open details for ${project.data.title}`}
+              style={{ animationDelay: `${index * 200}ms` }}
+            >
+              <Image
+                src={image}
+                alt={project.data.title}
+                class="ease-[cubic-bezier(1, 0, 0, 1)] aspect-square w-full scale-100 overflow-hidden rounded-3xl border-0 border-white bg-white object-cover shadow-lg transition-all duration-310 hover:scale-110 hover:border-4 hover:border-white hover:shadow-2xl"
+                loading="lazy"
+                fetchpriority="high"
+                width={500}
+                height={500}
+                sizes="(min-width: 1024px) 13rem, (min-width: 768px) 30vw, 45vw"
+                style={{ aspectRatio: '1 / 1' }}
+              />
+            </a>
+          );
+        })
+      }
+    </div>
   </div>
 </section>
 
@@ -76,7 +81,7 @@ const visibleProjects = projects
           aria-label="Close"
           tabindex="-1"
         />
-        <div class="relative z-1 max-h-[90vh] w-full max-w-2xl overflow-auto rounded-[1.25rem] bg-white p-0 shadow-2xl animate-fade-in-fast motion-reduce:animate-none">
+        <div class="relative z-1 max-h-[90vh] w-full max-w-2xl animate-fade-in-fast overflow-auto rounded-[1.25rem] bg-white p-0 shadow-2xl motion-reduce:animate-none">
           <a
             href="#"
             class="flex flex-row items-center gap-1 px-4 py-3 text-gray-500"
