@@ -1,6 +1,7 @@
 ---
 title: React Keyboardist
 url: https://github.com/soska/react-keyboardist
+image: ./react-keyboardist.png
 category: Open Source
 order: 2
 ---

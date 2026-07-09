@@ -11,7 +11,8 @@
     "check": "astro check",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "write": "node ./create-post.js"
+    "write": "node ./create-post.js",
+    "screenshots:projects": "node ./scripts/screenshot-projects.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^5.0.0",
@@ -23,6 +24,7 @@
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.20",
     "@tailwindcss/vite": "^4.3.2",
+    "playwright-core": "^1.61.1",
     "prettier": "^3.9.4",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.8.0",
