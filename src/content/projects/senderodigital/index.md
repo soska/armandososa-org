@@ -2,6 +2,7 @@
 title: Sendero Digital
 url: https://sd.dnioccidente.com
 image: ./senderodigital.png
+modalImage: ./senderodigital.png
 category: Featured Work
 order: -1
 published: true

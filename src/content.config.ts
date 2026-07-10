@@ -22,6 +22,8 @@ const projects = defineCollection({
     title: z.string(),
     url: z.string(),
     image: z.string().optional(),
+    // Larger image shown in the project modal; falls back to `image` when absent.
+    modalImage: z.string().optional(),
     category: z.string(),
     order: z.number().default(0),
     published: z.boolean().default(true),

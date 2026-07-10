@@ -34,6 +34,11 @@ const visibleProjects = publishedProjects
       My projects
       <span class="block h-full w-6 animate-blink bg-gray-100" aria-hidden="true">&nbsp;</span>
     </h2>
+    <p class="mb-0 max-w-2xl text-lg text-gray-700/70 md:text-xl">
+      These are not unicorns, mind you. They are personal passion projects that I do for pure
+      enjoyment and to keep my skills sharp.
+    </p>
+
     <div class="grid grid-cols-2 gap-8 md:grid-cols-3">
       {
         visibleProjects.map((project, index) => {
@@ -49,7 +54,7 @@ const visibleProjects = publishedProjects
               <Image
                 src={image}
                 alt={project.data.title}
-                class="ease-[cubic-bezier(1, 0, 0, 1)] aspect-square w-full scale-100 overflow-hidden rounded-3xl border-0 border-white bg-white object-cover shadow-lg transition-all duration-310 corner-shape-squircle hover:scale-110 hover:border-4 hover:border-white hover:shadow-2xl"
+                class="ease-[cubic-bezier(1, 0, 0, 1)] aspect-square w-full scale-100 overflow-hidden rounded-4xl border-0 border-white bg-white object-cover shadow-lg transition-all duration-310 corner-shape-squircle hover:scale-110 hover:border-4 hover:border-white hover:shadow-2xl"
                 loading="lazy"
                 fetchpriority="high"
                 width={500}
@@ -68,7 +73,9 @@ const visibleProjects = publishedProjects
 {
   visibleProjects.map((project) => {
     const Description = rendered.get(project.id);
-    const image = resolveProjectImage(project.id, project.data.image)!;
+    const image =
+      resolveProjectImage(project.id, project.data.modalImage) ??
+      resolveProjectImage(project.id, project.data.image)!;
     return (
       <div
         id={`project-${project.id}`}

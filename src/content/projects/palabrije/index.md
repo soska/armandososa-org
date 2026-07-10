@@ -1,7 +1,8 @@
 ---
 title: Palabrije
 url: https://palabrije.com
-image: ./palabrije.png
+image: ./mascot.png
+modalImage: ./palabrije.png
 category: Featured Work
 order: 3
 published: true

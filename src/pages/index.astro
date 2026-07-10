@@ -18,7 +18,7 @@ const allProjects = await getCollection('projects');
   <!-- home hero section -->
   <div
     data-hero
-    class="relative mx-auto flex h-[40vh] max-h-[600px] min-h-[400px] w-full flex-col items-center justify-end overflow-hidden bg-accent text-white isolate"
+    class="relative isolate mx-auto flex h-[40vh] max-h-[600px] min-h-[400px] w-full flex-col items-center justify-end overflow-hidden bg-accent text-white"
   >
     <HeroStrings />
     <div class="wrapper flex flex-col py-8">
@@ -40,12 +40,8 @@ const allProjects = await getCollection('projects');
   </div>
 
   <Projects projects={allProjects} />
-
-  <Music />
-
-  <Articles />
-
-  <GithubActivity />
-
   <About />
+  <GithubActivity />
+  <Articles />
+  <Music />
 </MainLayout>
