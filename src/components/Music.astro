@@ -1,5 +1,7 @@
 ---
-import { CirclePlay, ExternalLink, Music2 } from '@lucide/astro';
+import SpotifyIcon from './icons/SpotifyIcon.astro';
+import AppleMusicIcon from './icons/AppleMusicIcon.astro';
+import YouTubeIcon from './icons/YouTubeIcon.astro';
 
 const artistLinks = {
   youtube: 'https://www.youtube.com/channel/UChLJSdV8ewJiF4QWhngXxBA',
@@ -87,62 +89,20 @@ const spotifySearch = (title: string) =>
   `https://open.spotify.com/search/${encodeURIComponent(`${title} Inconforme`)}`;
 ---
 
-<section id="music" class="bg-blush">
+<section id="music" class="bg-pink-100">
   <div class="wrapper flex flex-col gap-10 py-20 md:py-24">
-    <div class="grid gap-6 md:grid-cols-[1.15fr_0.85fr] md:items-end">
-      <div>
-        <p
-          class="mb-2 inline-flex items-center gap-2 rounded-full bg-white px-3 py-1 text-sm font-bold tracking-wide text-accent uppercase shadow-sm"
-        >
-          <Music2 class="size-4" aria-hidden="true" />
-          Music
-        </p>
-        <h2
-          class="mt-0 mb-4 font-grotesque text-5xl font-bold tracking-tight text-accent md:text-6xl"
-        >
-          Inconforme
-        </h2>
-        <p class="mb-0 max-w-2xl text-lg text-gray-700 md:text-xl">
-          I release indie Christian music in Spanish under the name <strong>Inconforme</strong> — songs
-          about surrender, hope, and learning to live like this world is not the whole story.
-        </p>
-      </div>
+    <h2 class="mt-0 font-grotesque text-5xl font-bold tracking-tight text-accent md:text-6xl">
+      Music
+    </h2>
+    <p class="mb-0 max-w-2xl text-lg text-gray-700/70 md:text-xl">
+      I release indie Christian music in Spanish under the name <strong>Inconforme</strong> — songs about
+      surrender, hope, and learning to live like this world is not the whole story.
+    </p>
 
-      <div class="flex flex-wrap gap-3 md:justify-end">
-        <a
-          href={artistLinks.youtube}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2 font-bold text-white shadow-md transition hover:-translate-y-0.5 hover:bg-[crimson] hover:text-white"
-        >
-          <CirclePlay class="size-4" aria-hidden="true" />
-          YouTube
-        </a>
-        <a
-          href={artistLinks.spotify}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 font-bold text-accent shadow-sm transition hover:-translate-y-0.5 hover:text-[crimson]"
-        >
-          Spotify
-          <ExternalLink class="size-4" aria-hidden="true" />
-        </a>
-        <a
-          href={artistLinks.apple}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 font-bold text-accent shadow-sm transition hover:-translate-y-0.5 hover:text-[crimson]"
-        >
-          Apple Music
-          <ExternalLink class="size-4" aria-hidden="true" />
-        </a>
-      </div>
-    </div>
-
-    <div class="grid gap-5 md:grid-cols-2">
+    <div class="grid gap-8 md:grid-cols-2">
       {
         songs.map((song) => (
-          <article class="group overflow-hidden ring-accent/5 transition duration-200">
+          <article class="group overflow-hidden border-b-2 border-pink-500/10 py-6 ring-accent/5 transition duration-200">
             {/* <a
               href={song.url}
               target="_blank"
@@ -156,46 +116,29 @@ const spotifySearch = (title: string) =>
                 class="h-48 w-full object-cover sm:h-full sm:min-h-40"
               />
             </a> */}
-            <div class="flex h-full flex-col">
-              <h3 class="mt-0 mb-2 text-xl leading-tight font-black">
+            <div class="flex h-full flex-col gap-2">
+              <h3 class="mt-0 mb-2 text-lg leading-tight font-black">
                 <a
                   href={song.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="text-accent group-hover:text-[crimson]"
+                  class="text-gray-800/90 group-hover:text-accent"
                 >
                   {song.title}
                 </a>
               </h3>
-              <p class="mb-4 text-sm leading-6 text-gray-600">{song.blurb}</p>
-              <div class="mt-auto flex flex-wrap gap-2 text-xs font-bold tracking-wide uppercase">
-                <a
-                  href={song.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="inline-flex items-center gap-1 rounded-full bg-accent/10 px-2.5 py-1 text-accent hover:bg-accent hover:text-white"
-                >
-                  <CirclePlay class="size-3.5" aria-hidden="true" /> YouTube
+              <div class="[&>a]:p-1/2 -mt-2 mb-2 flex gap-1 [&>a]:text-gray-500/50 [&>a]:transition-colors [&>a]:duration-200 [&>a]:hover:text-accent">
+                <a href={song.url} target="_blank" rel="noopener noreferrer">
+                  <YouTubeIcon class="text-lg" />
                 </a>
-                <a
-                  href={spotifySearch(song.title)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="rounded-full bg-gray-100 px-2.5 py-1 text-gray-500 hover:bg-accent hover:text-white"
-                >
-                  Spotify
+                <a href={spotifySearch(song.title)} target="_blank" rel="noopener noreferrer">
+                  <SpotifyIcon class="text-lg" />
                 </a>
-                {song.apple ? (
-                  <a
-                    href={song.apple}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="rounded-full bg-gray-100 px-2.5 py-1 text-gray-500 hover:bg-accent hover:text-white"
-                  >
-                    Apple Music
-                  </a>
-                ) : null}
+                <a href={song.apple} target="_blank" rel="noopener noreferrer">
+                  <AppleMusicIcon class="text-lg" />
+                </a>
               </div>
+              <p class="mb-4 text-sm leading-6 text-gray-600">{song.blurb}</p>
             </div>
           </article>
         ))

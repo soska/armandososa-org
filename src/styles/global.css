@@ -68,6 +68,10 @@
   margin-inline: auto;
 }
 
+@utility corner-shape-squircle {
+  corner-shape: squircle;
+}
+
 /* Base typography. These element defaults style both the hand-written pages
    and the markdown rendered for blog posts, so they live here rather than as
    utility classes. */
