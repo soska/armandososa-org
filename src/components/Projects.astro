@@ -46,7 +46,7 @@ const visibleProjects = publishedProjects
           return (
             <a
               href={`#project-${project.id}`}
-              class="block animate-fade-in motion-reduce:animate-none"
+              class="group block animate-fade-in hover:z-1 motion-reduce:animate-none"
               aria-haspopup="dialog"
               aria-label={`Open details for ${project.data.title}`}
               style={{ animationDelay: `${index * 200}ms` }}
@@ -62,6 +62,11 @@ const visibleProjects = publishedProjects
                 sizes="(min-width: 1024px) 13rem, (min-width: 768px) 30vw, 45vw"
                 style={{ aspectRatio: '1 / 1' }}
               />
+              <div class="absolute right-0 bottom-0 left-0 -z-1 flex flex-row items-center justify-center gap-2">
+                <div class="ease-[cubic-bezier(1, 0, 0, 1.2)] py-.5 w-fit -translate-y-full rounded-full bg-gray-700 px-4 text-white transition-transform duration-310 group-hover:translate-y-[180%]">
+                  {project.data.title}
+                </div>
+              </div>
             </a>
           );
         })

@@ -1,10 +1,10 @@
 ---
 title: Sendero Digital
 url: https://sd.dnioccidente.com
-image: ./senderodigital.png
+image: ./thumbnail-sd.png
 modalImage: ./senderodigital.png
 category: Featured Work
-order: -1
+order: 2
 published: true
 ---
 
