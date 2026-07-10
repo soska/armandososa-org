@@ -14,7 +14,7 @@
      thin divider lines). Pairs with `surface` white and the tomato accent. */
   --color-blush: #fdf2ec;
 
-  --font-grotesque: var(--font-bricolage-grotesque), Georgia, serif;
+  --font-grotesque: var(--font-space-grotesk), system-ui, sans-serif;
   --font-sans: var(--font-grotesque);
   --font-mono: Menlo, Monaco, Consolas, 'Andale Mono', 'Ubuntu Mono', monospace;
 

@@ -11,9 +11,9 @@ export default defineConfig({
   fonts: [
     {
       provider: fontProviders.google(),
-      name: 'Bricolage Grotesque',
-      cssVariable: '--font-bricolage-grotesque',
-      weights: [400, 700, 900],
+      name: 'Space Grotesk',
+      cssVariable: '--font-space-grotesk',
+      weights: [400, 500, 600, 700],
       styles: ['normal'],
       fallbacks: ['system-ui', 'sans-serif'],
     },
