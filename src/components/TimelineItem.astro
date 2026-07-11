@@ -3,10 +3,12 @@ import type { TimelineEntry, TimelineSubRole } from '../data/timeline';
 
 interface Props {
   item: TimelineEntry | TimelineSubRole;
-  nested?: boolean;
+  odd?: boolean;
+  // nested?: boolean;
 }
 
-const { item, nested = false } = Astro.props;
+const { item, odd = false } = Astro.props;
+const nested = false; // we will remove this soon
 const organization = 'organization' in item ? item.organization : undefined;
 const location = 'location' in item ? item.location : undefined;
 const type = 'type' in item ? item.type : undefined;
@@ -24,12 +26,21 @@ const formatDate = (date: string) => {
 };
 ---
 
-<li class:list={[nested ? 'py-2' : 'border-b border-accent/10 py-6']}>
-  <article class="flex flex-col gap-1">
+<li class:list={['grid grid-cols-2 gap-0']}>
+  <article
+    class:list={[
+      'flex flex-col gap-1 p-4',
+      odd
+        ? 'col-start-2 ml-[-4px] border-l-4 border-accent/20 pl-6'
+        : 'col-start-1 border-r-4 border-accent/20 pr-6',
+    ]}
+  >
     <p class="m-0 text-sm text-muted">
       <time datetime={item.startDate}>{formatDate(item.startDate)}</time>
       {' – '}
-      <time datetime={item.endDate === 'present' ? undefined : item.endDate}>{formatDate(item.endDate)}</time>
+      <time datetime={item.endDate === 'present' ? undefined : item.endDate}
+        >{formatDate(item.endDate)}</time
+      >
       {type ? <span> · {type}</span> : null}
     </p>
 
@@ -40,12 +51,14 @@ const formatDate = (date: string) => {
     {location ? <p class="m-0 text-sm text-muted">{location}</p> : null}
     {item.description ? <p class="m-0 text-text/80">{item.description}</p> : null}
 
-    {'subRoles' in item && item.subRoles?.length ? (
-      <ul class="mt-3 list-none border-l border-accent/20 pl-4">
-        {item.subRoles.map((subRole) => (
-          <Astro.self item={subRole} nested />
-        ))}
-      </ul>
-    ) : null}
+    <!-- {
+      'subRoles' in item && item.subRoles?.length ? (
+        <ul class="mt-3 list-none border-l border-accent/20 pl-4">
+          {item.subRoles.map((subRole) => (
+            <Astro.self item={subRole} nested />
+          ))}
+        </ul>
+      ) : null
+    } -->
   </article>
 </li>
