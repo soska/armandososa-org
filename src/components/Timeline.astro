@@ -1,0 +1,28 @@
+---
+import TimelineItem from './TimelineItem.astro';
+import type { TimelineEntry } from '../data/timeline';
+
+interface Props {
+  items: TimelineEntry[];
+}
+
+const { items } = Astro.props;
+
+const dateSortValue = (date: string) => {
+  if (date === 'present') return Number.MAX_SAFE_INTEGER;
+
+  const [year, month = '01'] = date.split('-');
+  return Number(`${year}${month.padStart(2, '0')}`);
+};
+
+const sortedItems = [...items].sort((a, b) => dateSortValue(b.startDate) - dateSortValue(a.startDate));
+---
+
+<section id="timeline" class="bg-white">
+  <div class="wrapper flex flex-col gap-8 py-20 md:py-24">
+    <h2 class="mt-0 font-grotesque text-4xl font-bold text-accent">Timeline</h2>
+    <ul class="m-0 list-none p-0">
+      {sortedItems.map((item) => <TimelineItem item={item} />)}
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,51 @@
+---
+import type { TimelineEntry, TimelineSubRole } from '../data/timeline';
+
+interface Props {
+  item: TimelineEntry | TimelineSubRole;
+  nested?: boolean;
+}
+
+const { item, nested = false } = Astro.props;
+const organization = 'organization' in item ? item.organization : undefined;
+const location = 'location' in item ? item.location : undefined;
+const type = 'type' in item ? item.type : undefined;
+
+const formatDate = (date: string) => {
+  if (date === 'present') return 'Present';
+
+  const [year, month] = date.split('-');
+  if (!month) return year;
+
+  return new Date(Number(year), Number(month) - 1).toLocaleDateString('en-US', {
+    month: 'short',
+    year: 'numeric',
+  });
+};
+---
+
+<li class:list={[nested ? 'py-2' : 'border-b border-accent/10 py-6']}>
+  <article class="flex flex-col gap-1">
+    <p class="m-0 text-sm text-muted">
+      <time datetime={item.startDate}>{formatDate(item.startDate)}</time>
+      {' – '}
+      <time datetime={item.endDate === 'present' ? undefined : item.endDate}>{formatDate(item.endDate)}</time>
+      {type ? <span> · {type}</span> : null}
+    </p>
+
+    <h3 class="m-0 text-xl font-bold text-text">
+      {item.title}{organization ? <span> · {organization}</span> : null}
+    </h3>
+
+    {location ? <p class="m-0 text-sm text-muted">{location}</p> : null}
+    {item.description ? <p class="m-0 text-text/80">{item.description}</p> : null}
+
+    {'subRoles' in item && item.subRoles?.length ? (
+      <ul class="mt-3 list-none border-l border-accent/20 pl-4">
+        {item.subRoles.map((subRole) => (
+          <Astro.self item={subRole} nested />
+        ))}
+      </ul>
+    ) : null}
+  </article>
+</li>
