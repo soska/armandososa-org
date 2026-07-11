@@ -94,6 +94,7 @@ const visibleProjects = publishedProjects
           class="absolute inset-0 bg-accent/90 backdrop-blur-sm"
           aria-label="Close"
           tabindex="-1"
+          data-modal-close
         />
         <div class="relative z-1 max-h-[90vh] w-full max-w-2xl animate-fade-in-fast overflow-auto rounded-[1.25rem] bg-white p-0 shadow-2xl motion-reduce:animate-none lg:max-w-3xl xl:max-w-4xl">
           <a
@@ -177,14 +178,28 @@ const visibleProjects = publishedProjects
 
   function closeModal() {
     const toFocus = lastFocused;
+    const scrollX = window.scrollX;
+    const scrollY = window.scrollY;
     lastFocused = null;
     // Navigating the hash to empty is what actually drops the `:target` (and hides
     // the modal via CSS) — `history.replaceState` alone does NOT re-evaluate
     // `:target`. Then tidy the leftover `#` out of the URL without a history entry.
+    // Preserve scroll because `href="#"` / empty hash navigation otherwise jumps to top.
     location.hash = '';
     history.replaceState(null, '', location.pathname + location.search);
-    toFocus?.focus();
+    window.scrollTo(scrollX, scrollY);
+    requestAnimationFrame(() => window.scrollTo(scrollX, scrollY));
+    toFocus?.focus({ preventScroll: true });
   }
+
+  document.addEventListener('click', (event) => {
+    const target = event.target as Element | null;
+    const close = target?.closest('[data-modal-close]');
+    if (!close || !currentModal()) return;
+
+    event.preventDefault();
+    closeModal();
+  });
 
   document.addEventListener('keydown', (event) => {
     const modal = currentModal();

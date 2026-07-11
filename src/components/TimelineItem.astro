@@ -20,36 +20,52 @@ const formatDate = (date: string) => {
   if (!month) return year;
 
   return new Date(Number(year), Number(month) - 1).toLocaleDateString('en-US', {
-    month: 'short',
+    // month: 'short',
     year: 'numeric',
   });
 };
 ---
 
-<li class:list={['grid grid-cols-2 gap-0']}>
+<li class:list={['grid gap-0 md:grid-cols-2']}>
   <article
     class:list={[
-      'flex flex-col gap-1 p-4',
+      'relative flex flex-col gap-1 border-l-4 border-accent/20 py-4',
       odd
-        ? 'col-start-2 ml-[-4px] border-l-4 border-accent/20 pl-6'
-        : 'col-start-1 border-r-4 border-accent/20 pr-6',
+        ? 'col-start-2 pl-6 md:ml-[-4px]'
+        : 'col-start-1 pr-6 md:items-end md:border-r-4 md:border-l-0',
     ]}
   >
-    <p class="m-0 text-sm text-muted">
+    <p class="text-md m-0 mt-[-16px] text-muted">
       <time datetime={item.startDate}>{formatDate(item.startDate)}</time>
       {' – '}
       <time datetime={item.endDate === 'present' ? undefined : item.endDate}
         >{formatDate(item.endDate)}</time
       >
       {type ? <span> · {type}</span> : null}
+      <!-- timeline circle -->
     </p>
+
+    <div
+      aria-hidden="true"
+      class:list={[
+        'absolute top-[16px] left-[-16px] mt-[-16px] size-[28px] rounded-full border-4 border-yellow-300 bg-yellow-100',
+        odd ? '' : 'md:right-[-16px] md:left-auto',
+      ]}
+    >
+    </div>
 
     <h3 class="m-0 text-xl font-bold text-text">
       {item.title}{organization ? <span> · {organization}</span> : null}
     </h3>
 
     {location ? <p class="m-0 text-sm text-muted">{location}</p> : null}
-    {item.description ? <p class="m-0 text-text/80">{item.description}</p> : null}
+    {
+      item.description ? (
+        <p class:list={['m-0 text-text/80', odd ? 'md:text-left' : 'md:text-right']}>
+          {item.description}
+        </p>
+      ) : null
+    }
 
     <!-- {
       'subRoles' in item && item.subRoles?.length ? (
