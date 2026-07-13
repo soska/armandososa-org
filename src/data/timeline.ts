@@ -1,8 +1,20 @@
+export interface TimelineLink {
+  label: string;
+  url: string;
+}
+
+export interface TimelineScreenshot {
+  src: string;
+  alt: string;
+}
+
 export interface TimelineSubRole {
   title: string;
   startDate: string;
   endDate: string;
   description?: string;
+  links?: TimelineLink[];
+  screenshots?: TimelineScreenshot[];
 }
 
 export interface TimelineEntry {
@@ -13,6 +25,8 @@ export interface TimelineEntry {
   startDate: string;
   endDate: string;
   description?: string;
+  links?: TimelineLink[];
+  screenshots?: TimelineScreenshot[];
   subRoles?: TimelineSubRole[];
 }
 
@@ -59,6 +73,14 @@ export const timeline: TimelineEntry[] = [
     endDate: '2010-08',
     description:
       "Designed and developed the second and third generations of cakephp.org, combining UI design with frontend engineering for one of the web's most influential PHP frameworks.",
+    links: [
+      { label: 'Project notes', url: 'https://example.com/cakephp-notes' },
+      { label: 'Archived launch', url: 'https://example.com/cakephp-launch' },
+    ],
+    screenshots: [
+      { src: 'https://placehold.co/600x400', alt: 'CakePHP website placeholder screenshot' },
+      { src: 'https://placehold.co/600x400', alt: 'CakePHP detail placeholder screenshot' },
+    ],
   },
   // {
   //   type: 'work',
@@ -245,6 +267,14 @@ export const timeline: TimelineEntry[] = [
     endDate: '2010-12',
     description:
       'Designed branding, frontend architecture, and reusable templates for a social event platform.',
+    links: [
+      { label: 'Brand exploration', url: 'https://example.com/crowdvine-brand' },
+      { label: 'Template system', url: 'https://example.com/crowdvine-templates' },
+    ],
+    screenshots: [
+      { src: 'https://placehold.co/600x400', alt: 'Crowdvine placeholder screenshot' },
+      { src: 'https://placehold.co/600x400', alt: 'Crowdvine templates placeholder screenshot' },
+    ],
   },
   {
     type: 'work',
@@ -255,6 +285,14 @@ export const timeline: TimelineEntry[] = [
     endDate: '2010-12',
     description:
       'Led development of a WordPress plugin that transformed websites into native-feeling iPad experiences, laying the technical foundation for what became Onswipe.',
+    links: [
+      { label: 'Plugin overview', url: 'https://example.com/padpressed-overview' },
+      { label: 'iPad publishing notes', url: 'https://example.com/padpressed-ipad' },
+    ],
+    screenshots: [
+      { src: 'https://placehold.co/600x400', alt: 'PadPressed placeholder screenshot' },
+      { src: 'https://placehold.co/600x400', alt: 'PadPressed iPad placeholder screenshot' },
+    ],
   },
   {
     type: 'work',
@@ -264,6 +302,17 @@ export const timeline: TimelineEntry[] = [
     endDate: '2014-06',
     description:
       'Joined as an early engineer to help transform the original WordPress plugin into a venture-backed publishing platform, later building core advertising products and interactive creative tools used by major publishers.',
+    links: [
+      { label: 'Publishing platform', url: 'https://example.com/onswipe-platform' },
+      { label: 'Ad products', url: 'https://example.com/onswipe-ads' },
+    ],
+    screenshots: [
+      {
+        src: 'https://placehold.co/600x400',
+        alt: 'Onswipe publishing platform placeholder screenshot',
+      },
+      { src: 'https://placehold.co/600x400', alt: 'Onswipe ad product placeholder screenshot' },
+    ],
   },
   {
     type: 'work',
@@ -273,6 +322,14 @@ export const timeline: TimelineEntry[] = [
     endDate: '2015-08',
     description:
       'Mentored portfolio startups on frontend architecture, product development, and engineering strategy while helping teams adopt React during its earliest years.',
+    links: [
+      { label: 'Mentorship notes', url: 'https://example.com/socialatom-mentorship' },
+      { label: 'React workshop', url: 'https://example.com/socialatom-react' },
+    ],
+    screenshots: [
+      { src: 'https://placehold.co/600x400', alt: 'Socialatom Ventures placeholder screenshot' },
+      { src: 'https://placehold.co/600x400', alt: 'React workshop placeholder screenshot' },
+    ],
   },
   {
     type: 'work',
@@ -283,6 +340,14 @@ export const timeline: TimelineEntry[] = [
     endDate: '2018-07',
     description:
       'Owned both frontend engineering and product design, architecting the customer dashboard, internal tools, component systems, and deployment infrastructure for a fast-moving startup.',
+    links: [
+      { label: 'Dashboard notes', url: 'https://example.com/paid-dashboard' },
+      { label: 'Component system', url: 'https://example.com/paid-components' },
+    ],
+    screenshots: [
+      { src: 'https://placehold.co/600x400', alt: 'Paid dashboard placeholder screenshot' },
+      { src: 'https://placehold.co/600x400', alt: 'Paid component system placeholder screenshot' },
+    ],
   },
   {
     type: 'work',
@@ -293,5 +358,16 @@ export const timeline: TimelineEntry[] = [
     endDate: 'present',
     description:
       "Architected the company's frontend platform from the ground up, leading engineering for a production system that has evolved for over eight years while building custom rendering technology, AI-powered localization tooling, and a modern design system.",
+    links: [
+      { label: 'Frontend platform', url: 'https://example.com/jiveworld-platform' },
+      { label: 'Design system', url: 'https://example.com/jiveworld-design-system' },
+    ],
+    screenshots: [
+      { src: 'https://placehold.co/600x400', alt: 'Jiveworld platform placeholder screenshot' },
+      {
+        src: 'https://placehold.co/600x400',
+        alt: 'Jiveworld design system placeholder screenshot',
+      },
+    ],
   },
 ];
