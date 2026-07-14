@@ -31,39 +31,6 @@ export interface TimelineEntry {
 }
 
 export const timeline: TimelineEntry[] = [
-  // {
-  //   type: 'education',
-  //   title: 'Computer Technician, Software',
-  //   organization: 'CBTis 246',
-  //   startDate: '1997',
-  //   endDate: '2000',
-  // },
-  // {
-  //   type: 'work',
-  //   title: 'Design Manager',
-  //   organization: 'Isi-Graphic',
-  //   location: 'Guadalajara, Jalisco, Mexico',
-  //   startDate: '2000-07',
-  //   endDate: '2007-07',
-  //   description:
-  //     "Led the company's design department, overseeing branding, print production, illustration, and visual identity projects for a wide range of commercial clients.",
-  // },
-  // {
-  //   type: 'education',
-  //   title: 'Lic en Diseño Gráfico, Graphic Design',
-  //   organization: 'Universidad Univer',
-  //   startDate: '2002',
-  //   endDate: '2005',
-  // },
-  // {
-  //   type: 'work',
-  //   title: 'Design Consultant',
-  //   organization: 'Don Menus',
-  //   startDate: '2004-09',
-  //   endDate: '2005-12',
-  //   description:
-  //     "Created the company's first visual identity and website, helping establish its initial online presence.",
-  // },
   {
     type: 'work',
     title: 'Designer',
@@ -74,190 +41,15 @@ export const timeline: TimelineEntry[] = [
     description:
       "Designed and developed the second and third generations of cakephp.org, combining UI design with frontend engineering for one of the web's most influential PHP frameworks.",
     links: [
-      { label: 'Project notes', url: 'https://example.com/cakephp-notes' },
-      { label: 'Archived launch', url: 'https://example.com/cakephp-launch' },
+      { label: 'Archived cakephp.org (2008)', url: 'https://web.archive.org/web/2008/http://cakephp.org/' },
+      { label: 'Redesign retrospective', url: 'http://mark-story.com/posts/view/re-designing-cakephp' },
     ],
     screenshots: [
       { src: 'https://placehold.co/600x400', alt: 'CakePHP website placeholder screenshot' },
       { src: 'https://placehold.co/600x400', alt: 'CakePHP detail placeholder screenshot' },
     ],
   },
-  // {
-  //   type: 'work',
-  //   title: 'Design Consultant',
-  //   organization: 'Zenji Web Development',
-  //   location: 'Guadalupe, Nuevo León, Mexico',
-  //   startDate: '2007-06',
-  //   endDate: '2007-09',
-  //   description:
-  //     "Designed brand identities, information architecture, and web experiences for client projects during the agency's early growth.",
-  // },
-  // {
-  //   type: 'work',
-  //   title: 'Design Consultant',
-  //   organization: 'Astrata Software',
-  //   location: 'Guadalajara, Jalisco, Mexico',
-  //   startDate: '2007-03',
-  //   endDate: '2011-01',
-  //   description:
-  //     'Served as a long-term design and frontend consultant across multiple products, helping shape user interfaces, branding, and web applications for diverse clients.',
-  // },
-  // {
-  //   type: 'work',
-  //   title: 'Web Development Consultant',
-  //   organization: 'Maria Maria',
-  //   startDate: '2007-08',
-  //   endDate: '2008-04',
-  //   description:
-  //     "Designed the brand, illustrated marketing assets, and developed a custom WordPress theme for the company's online presence.",
-  // },
-  // {
-  //   type: 'work',
-  //   title: 'Web Development Consultant',
-  //   organization: 'LeadsCon',
-  //   location: 'Guadalajara, Jalisco, Mexico',
-  //   startDate: '2008-03',
-  //   endDate: '2008-04',
-  //   description:
-  //     'Designed and implemented website templates supporting one of the leading conferences in the lead-generation industry.',
-  // },
-  // {
-  //   type: 'work',
-  //   title: 'Design Consultant, Speaker',
-  //   organization: 'Mexico Web 2.0',
-  //   location: 'Guadalajara, Jalisco, Mexico',
-  //   startDate: '2008-05',
-  //   endDate: '2009-08',
-  //   description:
-  //     'Designed the conference website, developed its frontend, and delivered workshops on modern web design and frontend development.',
-  // },
-  // {
-  //   type: 'work',
-  //   title: 'Design Consultant',
-  //   organization: 'PSDGator',
-  //   location: 'Guadalajara, Jalisco, Mexico',
-  //   startDate: '2008-06',
-  //   endDate: '2008-09',
-  //   description:
-  //     'Created the visual identity, illustrations, and website experience for an online design resource.',
-  // },
-  // {
-  //   type: 'work',
-  //   title: 'Design Consultant',
-  //   organization: 'ResumeBucket.com',
-  //   location: 'Guadalajara, Jalisco, Mexico',
-  //   startDate: '2008-08',
-  //   endDate: '2008-09',
-  //   description:
-  //     'Designed the visual experience for an online résumé platform focused on helping professionals present their work.',
-  // },
-  // {
-  //   type: 'work',
-  //   title: 'Design Consultant',
-  //   organization: 'Gelato CMS',
-  //   location: 'Guadalajara, Jalisco, Mexico',
-  //   startDate: '2008-08',
-  //   endDate: '2008-09',
-  //   description:
-  //     'Designed the user interface for an open-source content management system focused on simplicity.',
-  // },
-  // {
-  //   type: 'work',
-  //   title: 'Design Consultant',
-  //   organization: 'Absolute Video',
-  //   location: 'Guadalajara, Jalisco, Mexico',
-  //   startDate: '2008-09',
-  //   endDate: '2010-11',
-  //   description:
-  //     'Collaborated on multiple client websites, contributing UI design, visual direction, and interaction design.',
-  // },
-  // {
-  //   type: 'work',
-  //   title: 'Design Consultant',
-  //   organization: 'Michigan Film Corps',
-  //   location: 'Guadalajara, Jalisco, Mexico',
-  //   startDate: '2009-06',
-  //   endDate: '2009-08',
-  //   description:
-  //     "Developed the organization's visual identity and website, establishing a cohesive public-facing brand.",
-  // },
-  // {
-  //   type: 'work',
-  //   title: 'Design Consultant',
-  //   organization: 'Boston Single Life',
-  //   location: 'Guadalajara, Jalisco, Mexico',
-  //   startDate: '2009-06',
-  //   endDate: '2010-02',
-  //   description: 'Designed multiple web experiences for a large online community platform.',
-  // },
-  // {
-  //   type: 'work',
-  //   title: 'Design Consultant',
-  //   organization: 'Panabee',
-  //   location: 'Guadalajara, Jalisco, Mexico',
-  //   startDate: '2009-10',
-  //   endDate: '2010-03',
-  //   description:
-  //     'Created the product’s visual identity, illustrations, and website, helping define the brand during its launch.',
-  // },
-  // // {
-  //   type: 'work',
-  //   title: 'Web Development Consultant',
-  //   organization: 'Social Atom',
-  //   location: 'Guadalajara, Jalisco, Mexico',
-  //   startDate: '2009-01',
-  //   endDate: '2010-07',
-  //   description:
-  //     'Designed and built CMS-driven websites while contributing UX architecture, frontend engineering, and custom plugin development across multiple startup products.',
-  // },
-  // {
-  //   type: 'work',
-  //   title: 'Design Consultant',
-  //   organization: 'Cristalab',
-  //   location: 'Guadalajara, Jalisco, Mexico',
-  //   startDate: '2008-12',
-  //   endDate: '2009-03',
-  //   description:
-  //     'Designed web experiences for one of the largest Spanish-speaking web development communities of its time.',
-  // },
-  // {
-  //   type: 'work',
-  //   title: 'Design Consultant',
-  //   organization: 'Smith, Conley & Associates',
-  //   location: 'Guadalajara, Jalisco, Mexico',
-  //   startDate: '2009-01',
-  //   endDate: '2009-02',
-  //   description:
-  //     "Designed the firm's website with an emphasis on clarity, professionalism, and usability.",
-  // },
-  // {
-  //   type: 'work',
-  //   title: 'Design Consultant',
-  //   organization: 'Nexcess',
-  //   location: 'Guadalajara, Jalisco, Mexico',
-  //   startDate: '2008-12',
-  //   endDate: '2009-01',
-  //   description: 'Designed user interfaces and web experiences for a leading managed hosting provider.',
-  // },
-  // {
-  //   type: 'work',
-  //   title: 'Web Development Consultant',
-  //   organization: 'TrendGal',
-  //   location: 'Guadalajara, Jalisco, Mexico',
-  //   startDate: '2007-12',
-  //   endDate: '2010-04',
-  //   description:
-  //     'Led branding, frontend engineering, and backend PHP development for a fashion platform, owning the product from identity through implementation.',
-  // },
-  // {
-  //   type: 'work',
-  //   title: 'Web Development Consultant',
-  //   organization: 'Maestros del Web',
-  //   startDate: '2010-02',
-  //   endDate: '2010-04',
-  //   description:
-  //     'Redesigned the platform and developed a new CMS plugin framework to support its future expansion.',
-  // },
+
   {
     type: 'work',
     title: 'Design Consultant',
@@ -268,13 +60,16 @@ export const timeline: TimelineEntry[] = [
     description:
       'Designed branding, frontend architecture, and reusable templates for a social event platform.',
     links: [
-      { label: 'Brand exploration', url: 'https://example.com/crowdvine-brand' },
-      { label: 'Template system', url: 'https://example.com/crowdvine-templates' },
+      {
+        label: 'TechCrunch coverage',
+        url: 'https://techcrunch.com/2007/11/15/social-networking-platform-crowdvine-targets-conference-organizers/',
+      },
+      { label: "Founder's writeup", url: 'https://coachtony.medium.com/crowdvine-beta-8bb22421b18a' },
     ],
-    screenshots: [
-      { src: 'https://placehold.co/600x400', alt: 'Crowdvine placeholder screenshot' },
-      { src: 'https://placehold.co/600x400', alt: 'Crowdvine templates placeholder screenshot' },
-    ],
+    // screenshots: [
+    //   { src: 'https://placehold.co/600x400', alt: 'Crowdvine placeholder screenshot' },
+    //   { src: 'https://placehold.co/600x400', alt: 'Crowdvine templates placeholder screenshot' },
+    // ],
   },
   {
     type: 'work',
@@ -286,13 +81,19 @@ export const timeline: TimelineEntry[] = [
     description:
       'Led development of a WordPress plugin that transformed websites into native-feeling iPad experiences, laying the technical foundation for what became Onswipe.',
     links: [
-      { label: 'Plugin overview', url: 'https://example.com/padpressed-overview' },
-      { label: 'iPad publishing notes', url: 'https://example.com/padpressed-ipad' },
+      {
+        label: 'TechCrunch launch',
+        url: 'https://techcrunch.com/2010/07/27/turn-your-blog-into-an-ipad-native-with-padpressed/',
+      },
+      {
+        label: 'CoverPad feature',
+        url: 'https://techcrunch.com/2010/10/22/coverpad-padpressed-flipboard/',
+      },
     ],
-    screenshots: [
-      { src: 'https://placehold.co/600x400', alt: 'PadPressed placeholder screenshot' },
-      { src: 'https://placehold.co/600x400', alt: 'PadPressed iPad placeholder screenshot' },
-    ],
+    // screenshots: [
+    //   { src: 'https://placehold.co/600x400', alt: 'PadPressed placeholder screenshot' },
+    //   { src: 'https://placehold.co/600x400', alt: 'PadPressed iPad placeholder screenshot' },
+    // ],
   },
   {
     type: 'work',
@@ -303,16 +104,20 @@ export const timeline: TimelineEntry[] = [
     description:
       'Joined as an early engineer to help transform the original WordPress plugin into a venture-backed publishing platform, later building core advertising products and interactive creative tools used by major publishers.',
     links: [
-      { label: 'Publishing platform', url: 'https://example.com/onswipe-platform' },
-      { label: 'Ad products', url: 'https://example.com/onswipe-ads' },
-    ],
-    screenshots: [
+      { label: 'The future of publishing', url: 'https://thenextweb.com/news/forget-apps-onswipe-is-the-future-of-publishing' },
+      { label: 'Seed round & rebrand', url: 'https://techcrunch.com/2011/01/12/onswipe/' },
       {
-        src: 'https://placehold.co/600x400',
-        alt: 'Onswipe publishing platform placeholder screenshot',
+        label: 'Platform launch',
+        url: 'https://techcrunch.com/2011/06/20/onswipe-wants-to-make-slate-forbes-and-your-website-feel-like-a-native-tablet-app/',
       },
-      { src: 'https://placehold.co/600x400', alt: 'Onswipe ad product placeholder screenshot' },
     ],
+    // screenshots: [
+    //   {
+    //     src: 'https://placehold.co/600x400',
+    //     alt: 'Onswipe publishing platform placeholder screenshot',
+    //   },
+    //   { src: 'https://placehold.co/600x400', alt: 'Onswipe ad product placeholder screenshot' },
+    // ],
   },
   {
     type: 'work',
@@ -323,13 +128,16 @@ export const timeline: TimelineEntry[] = [
     description:
       'Mentored portfolio startups on frontend architecture, product development, and engineering strategy while helping teams adopt React during its earliest years.',
     links: [
-      { label: 'Mentorship notes', url: 'https://example.com/socialatom-mentorship' },
-      { label: 'React workshop', url: 'https://example.com/socialatom-react' },
+      {
+        label: 'The Next Web feature',
+        url: 'https://thenextweb.com/news/colombia-gets-a-new-startup-accelerator-socialatom-ventures-backed-by-nxtp-labs',
+      },
+      { label: 'Crunchbase profile', url: 'https://www.crunchbase.com/organization/socialatom-ventures' },
     ],
-    screenshots: [
-      { src: 'https://placehold.co/600x400', alt: 'Socialatom Ventures placeholder screenshot' },
-      { src: 'https://placehold.co/600x400', alt: 'React workshop placeholder screenshot' },
-    ],
+    // screenshots: [
+    //   { src: 'https://placehold.co/600x400', alt: 'Socialatom Ventures placeholder screenshot' },
+    //   { src: 'https://placehold.co/600x400', alt: 'React workshop placeholder screenshot' },
+    // ],
   },
   {
     type: 'work',
@@ -341,13 +149,16 @@ export const timeline: TimelineEntry[] = [
     description:
       'Owned both frontend engineering and product design, architecting the customer dashboard, internal tools, component systems, and deployment infrastructure for a fast-moving startup.',
     links: [
-      { label: 'Dashboard notes', url: 'https://example.com/paid-dashboard' },
-      { label: 'Component system', url: 'https://example.com/paid-components' },
+      { label: 'Show HN launch', url: 'https://news.ycombinator.com/item?id=9187245' },
+      {
+        label: 'Acquisition news',
+        url: 'https://www.einpresswire.com/article/474605284/auction-mobility-acquires-paid-labs-expanding-its-back-office-and-invoicing-solution',
+      },
     ],
-    screenshots: [
-      { src: 'https://placehold.co/600x400', alt: 'Paid dashboard placeholder screenshot' },
-      { src: 'https://placehold.co/600x400', alt: 'Paid component system placeholder screenshot' },
-    ],
+    // screenshots: [
+    //   { src: 'https://placehold.co/600x400', alt: 'Paid dashboard placeholder screenshot' },
+    //   { src: 'https://placehold.co/600x400', alt: 'Paid component system placeholder screenshot' },
+    // ],
   },
   {
     type: 'work',
@@ -359,15 +170,18 @@ export const timeline: TimelineEntry[] = [
     description:
       "Architected the company's frontend platform from the ground up, leading engineering for a production system that has evolved for over eight years while building custom rendering technology, AI-powered localization tooling, and a modern design system.",
     links: [
-      { label: 'Frontend platform', url: 'https://example.com/jiveworld-platform' },
-      { label: 'Design system', url: 'https://example.com/jiveworld-design-system' },
-    ],
-    screenshots: [
-      { src: 'https://placehold.co/600x400', alt: 'Jiveworld platform placeholder screenshot' },
       {
-        src: 'https://placehold.co/600x400',
-        alt: 'Jiveworld design system placeholder screenshot',
+        label: 'Lupa launch announcement',
+        url: 'https://www.prweb.com/releases/radio_ambulante_ed_tech_lupa_innovative_language_app_for_people_who_want_to_truly_understand_real_world_spanish/prweb16958635.htm',
       },
+      { label: 'Lupa app review', url: 'https://www.alllanguageresources.com/lupa/' },
     ],
+    // screenshots: [
+    //   { src: 'https://placehold.co/600x400', alt: 'Jiveworld platform placeholder screenshot' },
+    //   {
+    //     src: 'https://placehold.co/600x400',
+    //     alt: 'Jiveworld design system placeholder screenshot',
+    //   },
+    // ],
   },
 ];

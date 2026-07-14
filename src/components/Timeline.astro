@@ -20,11 +20,15 @@ const sortedItems = [...items].sort(
 );
 ---
 
-<section id="timeline" class="bg-white">
+<section id="timeline" class="bg-yellow-50">
   <div class="wrapper flex flex-col gap-8 py-20 md:py-24">
     <h2 class="mt-0 font-grotesque text-4xl font-bold text-accent">Timeline</h2>
     <ul class="m-0 list-none p-0">
-      {sortedItems.map((item, index) => <TimelineItem item={item} odd={index % 2 === 0} />)}
+      {
+        sortedItems.map((item, index) => (
+          <TimelineItem item={item} odd={index % 2 === 0} defaultOpen={index === 0} />
+        ))
+      }
     </ul>
   </div>
 </section>
