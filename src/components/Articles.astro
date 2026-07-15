@@ -8,24 +8,24 @@ const posts = sortPosts(await getCollection('posts'));
 
 <section id="articles" class="bg-blush">
   <div class="wrapper flex flex-col gap-8 py-20 md:py-24">
-  <h2 class="mt-0 mb-6 font-grotesque text-4xl font-bold text-accent">Articles</h2>
-  <ul class="flex list-none flex-col p-0">
-    {
-      posts.map((post) => {
-        const href = `/${normalizePostPath(post.data.path, post.id)}/`;
-        return (
-          <li>
-            <a
-              href={href}
-              class="group relative flex flex-row items-center gap-2 border-b-2 border-accent/10 px-4 py-6 text-lg text-gray-700 transition-all duration-210 ease-in-out focus:bg-white focus:text-accent focus:ring-1 focus:ring-accent/20 focus:outline-none active:text-accent"
-            >
-              <span class="group-hover:text-accent">{post.data.title}</span>
-              <ArrowRightIcon class="size-6 opacity-50 transition-transform duration-210 ease-in-out group-hover:translate-x-2 group-hover:opacity-100" />
-            </a>
-          </li>
-        );
-      })
-    }
-  </ul>
+    <h2 class="mt-0 mb-6 font-grotesque text-4xl font-bold text-accent">Articles</h2>
+    <ul class="flex list-none flex-col p-0">
+      {
+        posts.map((post) => {
+          const href = `/${normalizePostPath(post.data.path, post.id)}/`;
+          return (
+            <li>
+              <a
+                href={href}
+                class="group relative flex flex-row items-center gap-2 border-b-2 border-accent/10 py-6 text-lg text-gray-700 transition-all duration-210 ease-in-out focus:bg-white focus:text-accent focus:ring-1 focus:ring-accent/20 focus:outline-none active:text-accent"
+              >
+                <span class="group-hover:text-accent">{post.data.title}</span>
+                <ArrowRightIcon class="size-6 opacity-50 transition-transform duration-210 ease-in-out group-hover:translate-x-2 group-hover:opacity-100" />
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
   </div>
 </section>

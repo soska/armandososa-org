@@ -2,13 +2,23 @@
 import Logo from './Logo.astro';
 import { ArrowDownIcon } from '@lucide/astro';
 
-const navLinks = [
-  // ['Home', '/'],
-  ['Articles', '/#articles'],
-  ['Projects', '/#projects'],
-  ['Music', '/#music'],
-  ['About', '/#about'],
-];
+interface Props {
+  /* `sections` shows the in-page anchors, which only exist on the home page.
+     Everywhere else the nav is just a way back home. */
+  variant?: 'sections' | 'home';
+}
+
+const { variant = 'home' } = Astro.props;
+
+const navLinks =
+  variant === 'sections'
+    ? [
+        ['Articles', '/#articles'],
+        ['Projects', '/#projects'],
+        ['Music', '/#music'],
+        ['About', '/#about'],
+      ]
+    : [['Home', '/']];
 ---
 
 <div
@@ -19,7 +29,7 @@ const navLinks = [
     <a
       class="relative block px-2 py-1.5 text-white/60 after:absolute after:top-1 after:-right-1 after:bottom-1 after:w-px after:bg-white after:content-[''] hover:text-white [&>svg]:size-5"
       aria-hidden="true"
-      href="#"
+      href={variant === 'sections' ? '#' : '/'}
     >
       <Logo />
     </a>
@@ -33,13 +43,15 @@ const navLinks = [
             href={href}
           >
             {label}
-            <span
-              aria-hidden="true"
-              class="inline-block -translate-y-full opacity-0 transition-[translate,rotate] duration-100 group-hover:translate-y-0 group-hover:opacity-100 group-hover:duration-300 data-[scroll-direction=up]:rotate-180"
-              data-scroll-arrow
-            >
-              <ArrowDownIcon class="size-4" />
-            </span>
+            {variant === 'sections' ? (
+              <span
+                aria-hidden="true"
+                class="inline-block -translate-y-full opacity-0 transition-[translate,rotate] duration-100 group-hover:translate-y-0 group-hover:opacity-100 group-hover:duration-300 data-[scroll-direction=up]:rotate-180"
+                data-scroll-arrow
+              >
+                <ArrowDownIcon class="size-4" />
+              </span>
+            ) : null}
           </a>
         );
       })

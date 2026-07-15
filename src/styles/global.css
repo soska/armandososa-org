@@ -156,6 +156,13 @@
     border-left: 0.35rem solid #1a1a1a;
   }
 
+  img,
+  video,
+  iframe {
+    max-width: 100%;
+    height: auto;
+  }
+
   code,
   pre {
     font-family: var(--font-mono);
@@ -206,3 +213,4 @@
     }
   }
 }
+

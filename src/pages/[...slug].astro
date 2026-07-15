@@ -27,41 +27,44 @@ const { Content } = await render(post);
 ---
 
 <MainLayout title={`${post.data.title} | Armando Sosa`}>
-  <header class="mb-7 bg-accent p-7">
-    <h1 class="m-0 font-thin text-white">{post.data.title}</h1>
-    {
-      post.data.subtitle ? (
-        <h2 class="my-1.5 text-xl text-[#808080]">{post.data.subtitle}</h2>
-      ) : null
-    }
-    <p class="-mt-7 mb-7 text-sm text-[gold] uppercase">{formatPostDate(post.data.date)}</p>
+  <header class="bg-accent text-white">
+    <div class="wrapper py-16 md:py-20">
+      <p class="mb-3 text-sm text-white/70 uppercase">{formatPostDate(post.data.date)}</p>
+      <h1 class="mt-0 mb-0 font-grotesque text-4xl font-bold md:text-5xl">{post.data.title}</h1>
+      {
+        post.data.subtitle ? (
+          <h2 class="mt-3 mb-0 text-xl font-normal text-white/80">{post.data.subtitle}</h2>
+        ) : null
+      }
+    </div>
   </header>
 
-  <article>
+  <article class="wrapper py-16 md:py-20">
     <Content />
   </article>
 
-  <hr class="mb-7" />
+  <nav class="wrapper pb-20">
+    <hr class="mb-7 border-accent/15" />
+    <ul class="flex list-none flex-wrap justify-between gap-6 p-0">
+      {
+        previous ? (
+          <li class="max-w-xs">
+            <a href={`/${normalizePostPath(previous.data.path, previous.id)}/`} rel="prev">
+              ← {previous.data.title}
+            </a>
+          </li>
+        ) : null
+      }
 
-  <ul class="flex list-none flex-wrap justify-between gap-3 p-0">
-    {
-      previous ? (
-        <li>
-          <a href={`/${normalizePostPath(previous.data.path, previous.id)}/`} rel="prev">
-            ← {previous.data.title}
-          </a>
-        </li>
-      ) : null
-    }
-
-    {
-      next ? (
-        <li>
-          <a href={`/${normalizePostPath(next.data.path, next.id)}/`} rel="next">
-            {next.data.title} →
-          </a>
-        </li>
-      ) : null
-    }
-  </ul>
+      {
+        next ? (
+          <li class="ml-auto max-w-xs text-right">
+            <a href={`/${normalizePostPath(next.data.path, next.id)}/`} rel="next">
+              {next.data.title} →
+            </a>
+          </li>
+        ) : null
+      }
+    </ul>
+  </nav>
 </MainLayout>
