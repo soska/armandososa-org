@@ -1,9 +1,10 @@
 ---
 import { getCollection } from 'astro:content';
-import { normalizePostPath, sortPosts } from '../lib/posts';
+import { formatPostDate, normalizePostPath, sortPosts } from '../lib/posts';
 import { ArrowRightIcon } from '@lucide/astro';
 
 const posts = sortPosts(await getCollection('posts'));
+const currentYear = new Date().getFullYear();
 ---
 
 <section id="articles" class="bg-blush">
@@ -13,6 +14,8 @@ const posts = sortPosts(await getCollection('posts'));
       {
         posts.map((post) => {
           const href = `/${normalizePostPath(post.data.path, post.id)}/`;
+          const postYear = post.data.date.getFullYear();
+          const dateLabel = postYear === currentYear ? formatPostDate(post.data.date) : String(postYear);
           return (
             <li>
               <a
@@ -20,6 +23,9 @@ const posts = sortPosts(await getCollection('posts'));
                 class="group relative flex flex-row items-center gap-2 border-b-2 border-accent/10 py-6 text-lg text-gray-700 transition-all duration-210 ease-in-out focus:bg-white focus:text-accent focus:ring-1 focus:ring-accent/20 focus:outline-none active:text-accent"
               >
                 <span class="group-hover:text-accent">{post.data.title}</span>
+                <time datetime={post.data.date.toISOString()} class="text-sm text-gray-500 tabular-nums">
+                  {dateLabel}
+                </time>
                 <ArrowRightIcon class="size-6 opacity-50 transition-transform duration-210 ease-in-out group-hover:translate-x-2 group-hover:opacity-100" />
               </a>
             </li>
