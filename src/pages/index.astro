@@ -20,21 +20,21 @@ const allProjects = await getCollection('projects');
   <!-- home hero section -->
   <div
     data-hero
-    class="relative isolate mx-auto flex h-[40vh] max-h-[600px] min-h-[400px] w-full flex-col items-center justify-end overflow-hidden bg-accent text-white"
+    class="relative isolate mx-auto flex h-[40vh] max-h-150 min-h-100 w-full flex-col items-center justify-end overflow-hidden bg-accent text-white"
   >
     <HeroStrings />
     <div class="wrapper flex flex-col py-8">
       <div class="flex flex-row items-end">
         <h1
-          class="flex flex-row items-center gap-2 border-b-4 border-white/60 p-4 font-grotesque text-hero leading-none font-bold tracking-tight"
+          class="flex flex-row items-center gap-2 border-b-3 border-white/60 p-4 font-grotesque text-hero leading-none font-bold tracking-tight"
         >
-          <span class="block text-white/60 [&>svg]:size-12" aria-hidden="true">
+          <!-- <span class="block text-white/60 [&>svg]:size-12" aria-hidden="true">
             <Logo />
-          </span>
+          </span> -->
           Armando Sosa
         </h1>
       </div>
-      <div class="p-4 font-grotesque text-hero leading-none font-bold">
+      <div class="p-4 font-grotesque text-role leading-none font-bold">
         <RoleRotator client:load />
       </div>
     </div>

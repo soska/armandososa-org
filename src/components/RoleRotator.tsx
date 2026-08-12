@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
 
+// Each role carries its own article so the list reads as a sentence on its
+// own ("a husband", "mexican") without a fixed "I am" prefix.
 const baseRoles = [
-  'christian',
-  'husband',
-  'developer',
-  'designer',
-  'musician',
-  'mexican',
-  'game Maker',
+  'Christian',
+  'Husband',
+  'Front-end engineer',
+  'Designer',
+  'Musician',
+  'Mexican',
+  'Game maker',
 ];
 
 function shuffle(values: string[]): string[] {
@@ -37,8 +39,6 @@ export default function RoleRotator() {
   }, [roles.length]);
 
   return (
-    // All roles share one grid cell, so the box auto-sizes to the widest /
-    // tallest role — no JS height measurement needed.
     <span className="inline-grid text-inherit">
       {roles.map((role, i) => (
         <span
