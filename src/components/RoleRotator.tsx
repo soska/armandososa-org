@@ -3,13 +3,14 @@ import { useEffect, useState } from 'react';
 // Each role carries its own article so the list reads as a sentence on its
 // own ("a husband", "mexican") without a fixed "I am" prefix.
 const baseRoles = [
-  'Christian',
-  'Husband',
-  'Front-end engineer',
+  'Developer',
   'Designer',
+  'Tech lead',
   'Musician',
-  'Mexican',
   'Game maker',
+  'Husband',
+  'Mexican',
+  'Christian',
 ];
 
 function shuffle(values: string[]): string[] {
