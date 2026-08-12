@@ -5,6 +5,7 @@ import InstagramIcon from './icons/InstagramIcon.astro';
 import BlueskyIcon from './icons/BlueskyIcon.astro';
 import DribbbleIcon from './icons/DribbbleIcon.astro';
 import GithubIcon from './icons/GithubIcon.astro';
+import LinkedInIcon from './icons/LinkedInIcon.astro';
 
 const socials = [
   { href: 'https://twitter.com/soska', label: 'Twitter / X', Icon: TwitterIcon },
@@ -16,12 +17,12 @@ const socials = [
   },
   { href: 'https://dribbble.com/soska', label: 'Dribbble', Icon: DribbbleIcon },
   { href: 'https://github.com/soska', label: 'Github', Icon: GithubIcon },
+  { href: 'https://www.linkedin.com/in/soska/', label: 'LinkedIn', Icon: LinkedInIcon },
 ];
 ---
 
 <div class="wrapper flex items-center border-t-2 border-white/10 md:justify-start">
   <div class="flex flex-1 flex-wrap items-center justify-between p-2 text-white md:justify-start">
-    <span class="mr-2 hidden text-white/80 md:block">stalk me on</span>
     {
       socials.map(({ href, label, Icon }) => (
         <SocialLink href={href} label={label}>
