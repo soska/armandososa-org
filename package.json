@@ -12,7 +12,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "write": "node ./create-post.js",
-    "screenshots:projects": "node ./scripts/screenshot-projects.mjs"
+    "screenshots:projects": "node ./scripts/screenshot-projects.mjs",
+    "deploy:prod": "git push origin HEAD:master --force"
   },
   "dependencies": {
     "@astrojs/react": "^5.0.0",
