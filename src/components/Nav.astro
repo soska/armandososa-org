@@ -21,11 +21,8 @@ const navLinks =
     : [['Home', '/']];
 ---
 
-<div
-  id="site-nav"
-  class="pointer-events-none fixed top-0 right-0 left-0 z-10 -translate-y-full opacity-0 transition-all duration-300 md:right-auto md:left-[50%] md:-translate-x-1/2 md:py-2"
->
-  <nav class="flex items-center justify-center overflow-hidden bg-accent shadow-lg md:rounded-sm">
+<div id="site-nav" class="relative top-0 z-10 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] data-[floating=true]:fixed data-[floating=true]:right-0 data-[floating=true]:left-0 md:data-[floating=true]:py-2">
+  <nav class="group flex items-center justify-center overflow-hidden bg-[#3a332f] shadow-lg transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] data-[floating=true]:bg-accent md:data-[floating=true]:mx-auto md:data-[floating=true]:w-max md:data-[floating=true]:rounded-sm">
     <a
       class="relative block px-2 py-1.5 text-white/60 after:absolute after:top-1 after:-right-1 after:bottom-1 after:w-px after:bg-white after:content-[''] hover:text-white [&>svg]:size-5"
       aria-hidden="true"
@@ -38,7 +35,7 @@ const navLinks =
         return (
           <a
             class:list={[
-              'group inline-flex items-center gap-1 px-4 py-2 text-[0.79rem] tracking-[0.04em] text-white uppercase hover:bg-white hover:text-accent',
+              'group inline-flex items-center gap-1 px-4 py-2 text-[0.79rem] tracking-[0.04em] text-white uppercase hover:bg-white hover:text-[#3a332f] data-[floating=true]:hover:text-accent',
             ]}
             href={href}
           >
@@ -61,11 +58,16 @@ const navLinks =
 
 <script>
   const nav = document.getElementById('site-nav');
+  const navBar = nav?.querySelector<HTMLElement>('nav');
   if (nav) {
-    const setVisible = (visible: boolean) => {
-      nav.classList.toggle('-translate-y-full', !visible);
-      nav.classList.toggle('opacity-0', !visible);
-      nav.classList.toggle('pointer-events-none', !visible);
+    const setFloating = () => {
+      const floatAfter = nav.offsetHeight + window.innerHeight * 0.05;
+      const floating = window.scrollY > floatAfter ? 'true' : 'false';
+      nav.dataset.floating = floating;
+      if (navBar) navBar.dataset.floating = floating;
+      nav.querySelectorAll<HTMLElement>('a').forEach((link) => {
+        link.dataset.floating = floating;
+      });
     };
 
     const updateScrollDirections = () => {
@@ -81,20 +83,15 @@ const navLinks =
       }
     };
 
+    const handleScroll = () => {
+      setFloating();
+      updateScrollDirections();
+    };
+
+    setFloating();
     updateScrollDirections();
-    window.addEventListener('scroll', updateScrollDirections, { passive: true });
+    window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', updateScrollDirections);
     window.addEventListener('hashchange', updateScrollDirections);
-
-    const hero = document.querySelector('[data-hero]');
-    if (!hero) {
-      // Pages without a hero (e.g. articles) show the nav immediately.
-      setVisible(true);
-    } else {
-      const observer = new IntersectionObserver(([entry]) => setVisible(!entry.isIntersecting), {
-        threshold: 0,
-      });
-      observer.observe(hero);
-    }
   }
 </script>
