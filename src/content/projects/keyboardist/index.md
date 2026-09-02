@@ -1,11 +1,15 @@
 ---
 title: Keyboardist
-url: https://github.com/soska/keyboardist.js
+url: https://www.keyboardist.io
 image: ./keyboardist.png
 modalImage: ./keyboardist.png
 category: Open Source
-order: 6
+order: 0
 published: true
 ---
 
-Keyboardist 3.0 just shipped — a ground-up rewrite of my library for adding keyboard shortcuts to JavaScript apps. It's still flying under the radar, but it's the most modern, capable version yet, and I think that's about to change.
+A tiny library for adding keyboard shortcuts to browser apps. No dependencies. Works with vanilla JS or React.
+
+Version 3.0 adds layers, so a modal, a player, and the rest of the app can each have their own shortcuts without fighting. React support now ships in the same package.
+
+The docs at [keyboardist.io](https://www.keyboardist.io) have live examples. That's the better place to start.
